@@ -10,6 +10,21 @@
 #include "serialize.h"
 #include "uint256.h"
 
+    /** Multi-Algo definitions used to encode algorithm in nVersion */
+    enum {
+        ALGO_SLOT1 = 0,  // Sha256d
+        ALGO_SLOT2 = 1,  // Argon2d-4096
+        ALGO_SLOT3 = 2,  // Rainforest
+        NUM_ALGOS
+    };
+    enum {
+        BLOCK_VERSION_ALGO      = (7 << 9),
+        BLOCK_VERSION_SLOT2     = (1 << 9),
+        BLOCK_VERSION_SLOT3     = (2 << 9)
+    };
+    /** extract algo from nVersion */
+    int GetAlgo(int nVersion);
+
 /** Nodes collect new transactions into a block, hash them into a hash tree,
  * and scan through nonce values to make the block's hash satisfy proof-of-work
  * requirements.  When they solve the proof-of-work, they broadcast the block
@@ -60,13 +75,36 @@ public:
         return (nBits == 0);
     }
 
+    inline int GetAlgo() const
+    {
+        return ::GetAlgo(nVersion);
+    }
+
     uint256 GetHash() const;
 
-    uint256 GetPoWHash() const;
+    uint256 GetPoWHash(int algo) const;
 
     int64_t GetBlockTime() const
     {
         return (int64_t)nTime;
+    }
+
+    /** Encode the algorithm into nVersion */
+    inline void SetAlgo(int algo)
+    {
+        switch (algo)
+        {
+            case ALGO_SLOT1:
+                break;
+            case ALGO_SLOT2:
+                nVersion |= BLOCK_VERSION_SLOT2;
+                break;
+            case ALGO_SLOT3:
+                nVersion |= BLOCK_VERSION_SLOT3;
+                break;
+            default:
+                break;
+        }
     }
 };
 

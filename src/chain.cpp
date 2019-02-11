@@ -117,6 +117,31 @@ void CBlockIndex::BuildSkip()
         pskip = pprev->GetAncestor(GetSkipHeight(nHeight));
 }
 
+const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
+{
+    for (;;)
+    {
+        if (!pindex)
+            return NULL;
+        if (pindex->GetAlgo() == algo)
+            return pindex;
+        pindex = pindex->pprev;
+    }
+}
+std::string GetAlgoName(int algo, uint32_t time)
+{
+    switch (algo)
+    {
+        case ALGO_SLOT1:
+            return std::string("Sha256d"); // not defined
+        case ALGO_SLOT2:
+            return std::string("Argon2d");
+        case ALGO_SLOT3:
+            return std::string("Rainforest");    
+    }
+    return std::string("Unknown");
+}
+
 arith_uint256 GetBlockProof(const CBlockIndex& block)
 {
     arith_uint256 bnTarget;

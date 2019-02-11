@@ -281,7 +281,13 @@ public:
     uint256 GetBlockPoWHash() const
     {
         CBlockHeader block = GetBlockHeader();
-        return block.GetPoWHash();
+        int algo = block.GetAlgo();
+        return block.GetPoWHash(algo);
+    }
+
+    int GetAlgo() const
+    {
+        return ::GetAlgo(nVersion);
     }
 
     int64_t GetBlockTime() const
@@ -347,6 +353,12 @@ public:
     //! Efficiently find an ancestor of this block.
     CBlockIndex* GetAncestor(int height);
     const CBlockIndex* GetAncestor(int height) const;
+
+
+    /** Return the index to the last block of algo **/
+    const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo);
+    /** return current algorithm name from nVersion and timestamp **/
+    std::string GetAlgoName(int algo, uint32_t time);
 };
 
 arith_uint256 GetBlockProof(const CBlockIndex& block);
