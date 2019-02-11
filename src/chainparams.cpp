@@ -150,7 +150,13 @@ public:
         consensus.powLimit[ALGO_SLOT2] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.powLimit[ALGO_SLOT3] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
-        consensus.nPowTargetSpacing = 2.5 * 60; // Kepler: 2.5 minutes
+        //consensus.nPowTargetSpacing = 2.5 * 60; // Kepler: 2.5 minutes
+        
+        consensus.nPowTargetSpacing = 60; // 60 second block time
+        consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
+        consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
+        consensus.nMaxAdjustUp = 4; // 4% adjustment upwards
+
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 15200;
@@ -280,7 +286,12 @@ public:
         consensus.powLimit[ALGO_SLOT2] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.powLimit[ALGO_SLOT3] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
-        consensus.nPowTargetSpacing = 2.5 * 60; // Kepler: 2.5 minutes
+
+        consensus.nPowTargetSpacing = 60; // 60 second block time
+        consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
+        consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
+        consensus.nMaxAdjustUp = 4; // 4% adjustment upwards
+
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
@@ -408,9 +419,15 @@ public:
         consensus.powLimit[ALGO_SLOT2] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.powLimit[ALGO_SLOT3] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
-        consensus.nPowTargetSpacing = 2.5 * 60; // Kepler: 2.5 minutes
+
+        consensus.nPowTargetSpacing = 60; // 60 second block time
+        consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
+        consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
+        consensus.nMaxAdjustUp = 4; // 4% adjustment upwards
+
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
+
         consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
         consensus.nPowDGWHeight = 4001;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
@@ -532,7 +549,12 @@ public:
         consensus.powLimit[ALGO_SLOT2] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.powLimit[ALGO_SLOT3] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
-        consensus.nPowTargetSpacing = 2.5 * 60; // Kepler: 2.5 minutes
+
+        consensus.nPowTargetSpacing = 60; // 60 second block time
+        consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
+        consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
+        consensus.nMaxAdjustUp = 4; // 4% adjustment upwards
+        
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.nPowKGWHeight = 15200; // same as mainnet
