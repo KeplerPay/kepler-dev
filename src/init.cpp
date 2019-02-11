@@ -89,6 +89,8 @@
 #include "zmq/zmqnotificationinterface.h"
 #endif
 
+#include "primitives/block.h"
+
 extern void ThreadSendAlert(CConnman& connman);
 
 bool fFeeEstimatesInitialized = false;
@@ -585,6 +587,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-blockmintxfee=<amt>", strprintf(_("Set lowest fee rate (in %s/kB) for transactions to be included in block creation. (default: %s)"), CURRENCY_UNIT, FormatMoney(DEFAULT_BLOCK_MIN_TX_FEE)));
     if (showDebug)
         strUsage += HelpMessageOpt("-blockversion=<n>", "Override block version to test forking scenarios");
+    strUsage += HelpMessageOpt("-algo=<algo>", _("Mining algorithm: ???, argon2d, rainforest"));
 
     strUsage += HelpMessageGroup(_("RPC server options:"));
     strUsage += HelpMessageOpt("-server", _("Accept command line and JSON-RPC commands"));
@@ -1048,6 +1051,19 @@ bool AppInitParameterInteraction()
     }
 
     fAllowPrivateNet = GetBoolArg("-allowprivatenet", DEFAULT_ALLOWPRIVATENET);
+
+    // determine algorithm to be used for any mining for this instance
+    std::string strAlgo = GetArg("-algo", "sha256d");
+    transform(strAlgo.begin(),strAlgo.end(),strAlgo.begin(),::tolower);
+    if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d") // CHANGE ALGO
+        miningAlgo = ALGO_SLOT1;
+    else if (strAlgo == "argon2d" || strAlgo == "argon" || strAlgo == "argon2")
+        miningAlgo = ALGO_SLOT2;
+    else if (strAlgo == "rainforest" || strAlgo == "rf")
+        miningAlgo = ALGO_SLOT3;
+    else
+        miningAlgo = ALGO_SLOT1;
+
 
     // Make sure enough file descriptors are available
     int nBind = std::max(
