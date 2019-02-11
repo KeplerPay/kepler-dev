@@ -15,7 +15,7 @@ namespace Consensus {
 enum DeploymentPos
 {
     DEPLOYMENT_TESTDUMMY,
-    DEPLOYMENT_CSV, // Deployment of BIP68, BIP112, and BIP113.
+
     DEPLOYMENT_DIP0001, // Deployment of DIP0001 and lower transaction fees.
     DEPLOYMENT_BIP147, // Deployment of BIP147 (NULLDUMMY)
     // NOTE: Also add new deployments to VersionBitsDeploymentInfo in versionbits.cpp
@@ -59,9 +59,8 @@ struct Params {
     int nGovernanceMinQuorum; // Min absolute vote count to trigger an action
     int nGovernanceFilterElements;
     int nMasternodeMinimumConfirmations;
-    /** Block height and hash at which BIP34 becomes active */
+    /** Block height at which BIP34 becomes active */
     int BIP34Height;
-    uint256 BIP34Hash;
     /** Block height at which BIP65 becomes active */
     int BIP65Height;
     /** Block height at which BIP66 becomes active */
