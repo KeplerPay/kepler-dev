@@ -230,7 +230,12 @@ UniValue getmininginfo(const JSONRPCRequest& request)
             "  \"blocks\": nnn,             (numeric) The current block\n"
             "  \"currentblocksize\": nnn,   (numeric) The last block size\n"
             "  \"currentblocktx\": nnn,     (numeric) The last block transaction\n"
-            "  \"difficulty\": xxx.xxxxx    (numeric) The current difficulty\n"
+            "  \"pow_algo_id\": n           (numeric) The active mining algorithm id\n"
+            "  \"pow_algo\": \"name\"       (string) The active mining algorithm name\n"
+            "  \"difficulty\": xxx.xxxxx    (numeric) The current difficulty for active algorithm\n"
+            "  \"difficulty_sha256d\": xxx.xxxxx   (numeric) The current difficulty for sha256d\n"
+            "  \"difficulty_argon2d\": xxx.xxxxx (numeric) The current difficulty for argon2d\n"
+            "  \"difficulty_rainforest\": xxx.xxxxx (numeric) The current difficulty for rainforest\n"
             "  \"errors\": \"...\"            (string) Current errors\n"
             "  \"networkhashps\": nnn,      (numeric) The network hashes per second\n"
             "  \"pooledtx\": n              (numeric) The size of the mempool\n"
@@ -248,7 +253,12 @@ UniValue getmininginfo(const JSONRPCRequest& request)
     obj.push_back(Pair("blocks",           (int)chainActive.Height()));
     obj.push_back(Pair("currentblocksize", (uint64_t)nLastBlockSize));
     obj.push_back(Pair("currentblocktx",   (uint64_t)nLastBlockTx));
-    obj.push_back(Pair("difficulty",       (double)GetDifficulty()));
+    obj.push_back(Pair("pow_algo_id", miningAlgo));
+    obj.push_back(Pair("pow_algo", GetAlgoName(miningAlgo, GetTime(), Params().GetConsensus())));
+    obj.push_back(Pair("difficulty",         (double)GetDifficulty(NULL, miningAlgo)));
+    obj.push_back(Pair("difficulty_sha256d",   (double)GetDifficulty(NULL, ALGO_SLOT1)));
+    obj.push_back(Pair("difficulty_argon2d", (double)GetDifficulty(NULL, ALGO_SLOT2)));
+    obj.push_back(Pair("difficulty_rainforest", (double)GetDifficulty(NULL, ALGO_SLOT3)));
     obj.push_back(Pair("errors",           GetWarnings("statusbar")));
     obj.push_back(Pair("networkhashps",    getnetworkhashps(request)));
     obj.push_back(Pair("pooledtx",         (uint64_t)mempool.size()));
