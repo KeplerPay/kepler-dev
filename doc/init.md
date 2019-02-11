@@ -68,9 +68,9 @@ can then be controlled by group membership.
 3b) Mac OS X
 
 Binary:              `/usr/local/bin/dashd`  
-Configuration file:  `~/Library/Application Support/DashCore/dash.conf`  
-Data directory:      `~/Library/Application Support/DashCore`
-Lock file:           `~/Library/Application Support/DashCore/.lock`
+Configuration file:  `~/Library/Application Support/KeplerCore/dash.conf`  
+Data directory:      `~/Library/Application Support/KeplerCore`
+Lock file:           `~/Library/Application Support/KeplerCore/.lock`
 
 4. Installing Service Configuration
 -----------------------------------
@@ -104,7 +104,7 @@ use old versions of Upstart and do not supply the start-stop-daemon utility.
 Copy dashd.init to /etc/init.d/dashd. Test by running `service dashd start`.
 
 Using this script, you can adjust the path and flags to the dashd program by
-setting the DASHD and FLAGS environment variables in the file
+setting the KPLD and FLAGS environment variables in the file
 /etc/sysconfig/dashd. You can also use the DAEMONOPTS environment variable here.
 
 4e) Mac OS X

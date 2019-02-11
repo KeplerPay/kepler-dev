@@ -84,8 +84,8 @@ for arg in sys.argv[1:]:
         opts.add(arg)
 
 #Set env vars
-if "DASHD" not in os.environ:
-    os.environ["DASHD"] = BUILDDIR + '/src/dashd' + EXEEXT
+if "KPLD" not in os.environ:
+    os.environ["KPLD"] = BUILDDIR + '/src/dashd' + EXEEXT
 
 if EXEEXT == ".exe" and "-win" not in opts:
     # https://github.com/bitcoin/bitcoin/commit/d52802551752140cf41f0d9a225a43e84404d3e9
@@ -196,7 +196,7 @@ testScriptsExt = [
     'invalidateblock.py',
     'maxblocksinflight.py',
     'p2p-acceptblock.py', # NOTE: needs dash_hash to pass
-    # 'replace-by-fee.py', # RBF is disabled in Dash Core
+    # 'replace-by-fee.py', # RBF is disabled in Kepler Core
 ]
 
 

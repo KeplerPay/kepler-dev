@@ -81,7 +81,7 @@ libconftest.dylib*
 *.qm
 Makefile
 dash-qt
-Dash-Qt.app
+Kepler-Qt.app
 
 # Unit-tests
 Makefile.test

@@ -1,8 +1,8 @@
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2014-2017 The Kepler Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-//#define ENABLE_DASH_DEBUG
+//#define ENABLE_KPL_DEBUG
 
 #include "activemasternode.h"
 #include "consensus/validation.h"
@@ -995,7 +995,7 @@ UniValue getsuperblockbudget(const JSONRPCRequest& request)
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ ----------
-    /* Dash features */
+    /* Kepler features */
     { "dash",               "getgovernanceinfo",      &getgovernanceinfo,      true,  {} },
     { "dash",               "getsuperblockbudget",    &getsuperblockbudget,    true,  {"index"} },
     { "dash",               "gobject",                &gobject,                true,  {} },
