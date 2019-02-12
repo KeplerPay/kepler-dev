@@ -10,12 +10,13 @@
 #include <map>
 #include <string>
 
+const int algoCount = 3;
+
 namespace Consensus {
 
 enum DeploymentPos
 {
     DEPLOYMENT_TESTDUMMY,
-
     DEPLOYMENT_DIP0001, // Deployment of DIP0001 and lower transaction fees.
     DEPLOYMENT_BIP147, // Deployment of BIP147 (NULLDUMMY)
     // NOTE: Also add new deployments to VersionBitsDeploymentInfo in versionbits.cpp
@@ -78,20 +79,19 @@ struct Params {
     uint32_t nMinerConfirmationWindow;
     BIP9Deployment vDeployments[MAX_VERSION_BITS_DEPLOYMENTS];
     /** Proof of work parameters */
-    uint256 powLimit[3];
+    uint256 powLimit[algoCount];
     bool fPowAllowMinDifficultyBlocks;
     bool fPowNoRetargeting;
     int64_t nPowTargetSpacing;
     int64_t nPowTargetTimespan;
 
     int64_t nPoWAveragingInterval;
-    int64_t nPoWAveragingTargetTimespan() const { return nPoWAveragingInterval * nPowTargetSpacing; }
+    int64_t nPoWAveragingTargetTimespan() const { return nPoWAveragingInterval * nPowTargetSpacing * algoCount; }
     int64_t nMaxAdjustDown;
     int64_t nMaxAdjustUp;
+    int nBlockSequentialAlgoMaxCount;
 
-    int nPowKGWHeight;
-    int nPowDGWHeight;
-    int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacing; }
+    int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacing; } // delete this when safe
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
 };

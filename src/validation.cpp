@@ -2573,8 +2573,9 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
             }
         }
     }
-    LogPrintf("%s: new best=%s height=%d version=0x%08x log2_work=%.8f tx=%lu date='%s' progress=%f cache=%.1fMiB(%utxo)", __func__,
-      chainActive.Tip()->GetBlockHash().ToString(), chainActive.Height(), chainActive.Tip()->nVersion,
+    LogPrintf("%s: new best=%s height=%d algo=%d (%s) version=0x%08x log2_work=%.8g tx=%lu date='%s' progress=%f cache=%.1fMiB(%utx)", __func__,
+      chainActive.Tip()->GetBlockHash().ToString(), chainActive.Height(), chainActive.Tip()->GetAlgo(),
+      GetAlgoName(chainActive.Tip()->GetAlgo(), chainActive.Tip()->GetBlockTime()),chainActive.Tip()->nVersion,
       log(chainActive.Tip()->nChainWork.getdouble())/log(2.0), (unsigned long)chainActive.Tip()->nChainTx,
       DateTimeStrFormat("%Y-%m-%d %H:%M:%S", chainActive.Tip()->GetBlockTime()),
       GuessVerificationProgress(chainParams.TxData(), chainActive.Tip()), pcoinsTip->DynamicMemoryUsage() * (1.0 / (1<<20)), pcoinsTip->GetCacheSize());
@@ -3519,6 +3520,21 @@ static bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state
             return state.DoS(100, error("%s: prev block invalid", __func__), REJECT_INVALID, "bad-prevblk");
 
         assert(pindexPrev);
+
+        int nAlgo = block.GetAlgo();
+        int nAlgoCount = 1;
+        int nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount;
+        CBlockIndex* piPrev = pindexPrev;
+        while (piPrev!=NULL && (nAlgoCount <= nMaxSeqCount))
+        {
+            if (piPrev->GetAlgo() != nAlgo)
+                break;
+            nAlgoCount++;
+            piPrev = piPrev->pprev;
+        }
+        if (nAlgoCount > nMaxSeqCount)
+            return error("%s: too many blocks from the same algorithm (limit=%d)", __func__, nMaxSeqCount);
+
         if (fCheckpointsEnabled && !CheckIndexAgainstCheckpoint(pindexPrev, state, chainparams, hash))
             return error("%s: CheckIndexAgainstCheckpoint(): %s", __func__, state.GetRejectReason().c_str());
 

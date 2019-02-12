@@ -42,6 +42,8 @@
 #endif // ENABLE_WALLET
 #include "privatesend-server.h"
 
+#include "pow.h"
+
 #include <boost/thread.hpp>
 
 #if defined(NDEBUG)
