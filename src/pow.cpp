@@ -10,48 +10,8 @@
 #include "chainparams.h"
 #include "primitives/block.h"
 #include "uint256.h"
-#include "bignum.h" // change lib later
 
 #include <math.h>
-
-/*unsigned int GetNextWorkRequiredBTC(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
-{
-    unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
-
-    // Genesis block
-    if (pindexLast == NULL)
-        return nProofOfWorkLimit;
-
-    // Only change once per interval
-    if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
-    {
-        if (params.fPowAllowMinDifficultyBlocks)
-        {
-            // Special difficulty rule for testnet:
-            // If the new block's timestamp is more than 2* 2.5 minutes
-            // then allow mining of a min-difficulty block.
-            if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
-                return nProofOfWorkLimit;
-            else
-            {
-                // Return the last non-special-min-difficulty-rules-block
-                const CBlockIndex* pindex = pindexLast;
-                while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
-                    pindex = pindex->pprev;
-                return pindex->nBits;
-            }
-        }
-        return pindexLast->nBits;
-    }
-
-    // Go back by what we want to be 1 day worth of blocks
-    int nHeightFirst = pindexLast->nHeight - (params.DifficultyAdjustmentInterval()-1);
-    assert(nHeightFirst >= 0);
-    const CBlockIndex* pindexFirst = pindexLast->GetAncestor(nHeightFirst);
-    assert(pindexFirst);
-
-   return CalculateNextWorkRequired(pindexLast, pindexFirst->GetBlockTime(), params);
-}*/
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, const Consensus::Params& params)
 {
@@ -81,14 +41,14 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
 
-    LogPrintf("GetNextWorkRequired(Algo=%d):   nActualTimespan = %d before bounds   %d   %d\n", algo, nActualTimespan, pindexLast->GetMedianTimePast(), pindexFirst->GetMedianTimePast());
+    //LogPrintf("GetNextWorkRequired(Algo=%d):   nActualTimespan = %d before bounds   %d   %d\n", algo, nActualTimespan, pindexLast->GetMedianTimePast(), pindexFirst->GetMedianTimePast());
 
     if (nActualTimespan < nMinActualTimespan)
         nActualTimespan = nMinActualTimespan;
     if (nActualTimespan > nMaxActualTimespan)
         nActualTimespan = nMaxActualTimespan;
 
-    LogPrintf("GetNextWorkRequired(Algo=%d):   nActualTimespan = %d after bounds   %d   %d\n", algo, nActualTimespan, nMinActualTimespan, nMaxActualTimespan);
+    //LogPrintf("GetNextWorkRequired(Algo=%d):   nActualTimespan = %d after bounds   %d   %d\n", algo, nActualTimespan, nMinActualTimespan, nMaxActualTimespan);
 
     arith_uint256 bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
@@ -100,10 +60,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     if(bnNew > nProofOfWorkLimit)
         bnNew = nProofOfWorkLimit;
 
-    LogPrintf("GetNextWorkRequired(Algo=%d) RETARGET\n", algo);
-    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", params.nPoWAveragingTargetTimespan(), nActualTimespan);
-    LogPrintf("Before: %08x  %s\n", pindexPrev->nBits, bnOld.ToString());
-    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.ToString());
+    //LogPrintf("GetNextWorkRequired(Algo=%d) RETARGET\n", algo);
+    //LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", params.nPoWAveragingTargetTimespan(), nActualTimespan);
+    //LogPrintf("Before: %08x  %s\n", pindexPrev->nBits, bnOld.ToString());
+    //LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.ToString());
 
     return bnNew.GetCompact();
 }
@@ -153,7 +113,7 @@ bool CheckProofOfWork(uint256 hash, int algo, unsigned int nBits, const Consensu
     return true;
 }
 
-arith_uint256 GetPrevWorkForAlgoWithDecay(const CBlockIndex& block, int algo)
+/*arith_uint256 GetPrevWorkForAlgoWithDecay(const CBlockIndex& block, int algo)
 {
     int nDistance = 0;
     arith_uint256 nWork;
@@ -173,8 +133,10 @@ arith_uint256 GetPrevWorkForAlgoWithDecay(const CBlockIndex& block, int algo)
         nDistance++;
     }
     return arith_uint256(0);
-}
+}*/
 
+/*
+BIGNUM ISSUE
 arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
 {
     arith_uint256 nBlockWork = GetBlockProofBase(block);
@@ -195,6 +157,132 @@ arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
     // Scale to roughly match the old work calculation
     bnRes <<= 8;
     return UintToArith256(bnRes.getuint256());
+}*/
+// BASED OF MYRIADCOIN
+arith_uint256 GetPrevWorkForAlgoWithDecay(const CBlockIndex& block, int algo)
+{
+    int nDistance = 0;
+    arith_uint256 nWork;
+    const CBlockIndex* pindex = &block;
+    while (pindex != NULL)
+    {
+        if (nDistance > 100)
+        {
+            return arith_uint256(0);
+        }
+        if (pindex->GetAlgo() == algo)
+        {
+            arith_uint256 nWork = GetBlockProofBase(*pindex);
+            nWork *= (100 - nDistance);
+            nWork /= 100;
+            return nWork;
+        }
+        pindex = pindex->pprev;
+        nDistance++;
+    }
+    return arith_uint256(0);
+}
+
+
+arith_uint256 uint256_nthRoot(const int root, const arith_uint256 bn)
+{
+    assert(root > 1);
+    if (bn==0)
+        return 0;
+    assert(bn > 0);
+
+    // starting approximation
+    int nRootBits = (bn.bits() + root - 1) / root;
+    int nStartingBits = std::min(8, nRootBits);
+    arith_uint256 bnUpper = bn;
+    bnUpper >>= (nRootBits - nStartingBits)*root;
+    arith_uint256 bnCur = 0;
+    for (int i = nStartingBits - 1; i >= 0; i--) {
+        arith_uint256 bnNext = bnCur;
+        bnNext += 1 << i;
+        arith_uint256 bnPower = 1;
+        for (int j = 0; j < root; j++)
+            bnPower *= bnNext;
+        if (bnPower <= bnUpper)
+            bnCur = bnNext;
+    }
+    if (nRootBits == nStartingBits)
+        return bnCur;
+    bnCur <<= nRootBits - nStartingBits;
+
+    // iterate: cur = cur + (bn / cur^^(root-1) - cur)/root
+    arith_uint256 bnDelta;
+    const arith_uint256 bnRoot = root;
+    int nTerminate = 0;
+    bool fNegativeDelta = false;
+    // this should always converge in fewer steps, but limit just in case
+    for (int it = 0; it < 20; it++)
+    {
+        arith_uint256 bnDenominator = 1;
+        for (int i = 0; i < root - 1; i++)
+            bnDenominator *= bnCur;
+        if (bnCur > bn/bnDenominator)
+            fNegativeDelta = true;
+        if (bnCur == bn/bnDenominator)  // bnDelta=0
+            return bnCur;
+        if (fNegativeDelta) {
+            bnDelta = bnCur - bn/bnDenominator;
+            if (nTerminate == 1)
+                return bnCur - 1;
+            fNegativeDelta = false;
+            if (bnDelta <= bnRoot) {
+                bnCur -= 1;
+                nTerminate = -1;
+                continue;
+            }
+            fNegativeDelta = true;
+        } else {
+            bnDelta = bn/bnDenominator - bnCur;
+            if (nTerminate == -1)
+                return bnCur;
+            if (bnDelta <= bnRoot) {
+                bnCur += 1;
+                nTerminate = 1;
+                continue;
+            }
+        }
+        if (fNegativeDelta) {
+            bnCur -= bnDelta / bnRoot;
+        } else {
+            bnCur += bnDelta / bnRoot;
+        }
+        nTerminate = 0;
+    }
+    return bnCur;
+}
+
+arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
+{
+    arith_uint256 bnRes;
+    arith_uint256 nBlockWork = GetBlockProofBase(block);
+    int nAlgo = block.GetAlgo();
+
+    // Compute the geometric mean
+    // We use the nthRoot product rule: nthroot(a*b*...) = nthroot(a)*nthroot(b)*...
+    // TWe use the product rule to ensure we never overflow a uint256.
+    nBlockWork = uint256_nthRoot(NUM_ALGOS, nBlockWork);
+
+    for (int algo = 0; algo < NUM_ALGOS; algo++)
+    {
+        if (algo != nAlgo)
+        {
+            arith_uint256 nBlockWorkAlt = GetPrevWorkForAlgoWithDecay(block, algo);
+            if (nBlockWorkAlt != 0)
+                nBlockWork *= uint256_nthRoot(NUM_ALGOS,nBlockWorkAlt);
+        }
+    }
+    // Compute the geometric mean
+    bnRes = nBlockWork;
+
+    // Scale to roughly match the old work calculation
+    bnRes <<= 8;
+
+    return bnRes;
 }
 
 arith_uint256 GetBlockProofBase(const CBlockIndex& block)
