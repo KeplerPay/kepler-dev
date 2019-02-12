@@ -10,6 +10,11 @@
 #include "utilstrencodings.h"
 #include "crypto/common.h"
 
+#include "crypto/hashargon2d.h"
+extern "C"{
+#include "crypto/rainforest/rainforest.h"
+} 
+
 #define BEGIN(a)            ((char*)&(a))
 #define END(a)              ((char*)&((&(a))[1]))
 
@@ -21,7 +26,7 @@ uint256 CBlockHeader::GetHash() const
 
 uint256 CBlockHeader::GetPoWHash(int algo) const
 {
-    LogPrintf("DEBUG: GetPoWHash %d \n",algo);
+    strprintf("DEBUG: GetPoWHash %d \n",algo);
     switch (algo)
     {
         case ALGO_SLOT1:
@@ -29,9 +34,15 @@ uint256 CBlockHeader::GetPoWHash(int algo) const
         case ALGO_SLOT2:
             return HashArgon2d(BEGIN(nVersion), END(nNonce));
         case ALGO_SLOT3:
-            uint256 thash;
-            yescrypt_hash(BEGIN(nVersion), BEGIN(thash));
-            return thash;           
+        {    
+        uint256 thash;
+        // hash _len_ bytes from _in_ into _out_
+        //rf256_hash(void *out, const void *in, size_t len) 
+        // ASSUME 80 bytes
+        rf256_hash(BEGIN(thash), BEGIN(nVersion), 80);
+
+        return thash;
+        }   
     }
     // catch-all if above doesn't match anything to algo
     return GetHash();

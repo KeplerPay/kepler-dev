@@ -341,6 +341,24 @@ crypto_libdash_crypto_a_SOURCES += \
   crypto/sph_skein.h \
   crypto/sph_types.h
 
+# other POW algos, fix CFLAGS for rainforest
+crypto_libdash_crypto_a_SOURCES += \
+  crypto/hashargon2d.h \
+  crypto/argon2/argon2.c \
+  crypto/argon2/argon2.h \
+  crypto/argon2/best.c \
+  crypto/argon2/blake2.h \
+  crypto/argon2/blake2b.c \
+  crypto/argon2/blake2-impl.h \
+  crypto/argon2/core.c \
+  crypto/argon2/core.h \
+  crypto/argon2/encoding.c \
+  crypto/argon2/encoding.h \
+  crypto/argon2/thread.c \
+  crypto/argon2/thread.h \
+  crypto/rainforest/rainforest.c \
+  crypto/rainforest/rainforest.h
+
 # consensus: shared between all executables that validate any consensus rules.
 libdash_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libdash_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
