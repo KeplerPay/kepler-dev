@@ -1427,7 +1427,7 @@ UniValue getchaintips(const JSONRPCRequest& request)
         UniValue obj(UniValue::VOBJ);
         obj.push_back(Pair("height", block->nHeight));
         obj.push_back(Pair("hash", block->phashBlock->GetHex()));
-        obj.push_back(Pair("difficulty", GetDifficulty(block)));
+        obj.push_back(Pair("difficulty", GetDifficulty(block, block->GetAlgo())));
         obj.push_back(Pair("chainwork", block->nChainWork.GetHex()));
         obj.push_back(Pair("branchlen", branchLen));
         obj.push_back(Pair("forkpoint", pindexFork->phashBlock->GetHex()));
