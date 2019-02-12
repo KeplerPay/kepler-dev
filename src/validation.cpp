@@ -1206,13 +1206,13 @@ bool GetTransaction(const uint256 &hash, CTransactionRef &txOut, const Consensus
 bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params)
 {
     int algo = block.GetAlgo();
-    if (!CheckProofOfWork(block.GetPoWHash(algo, params), algo, block.nBits, params))
+    if (!CheckProofOfWork(block.GetPoWHash(algo), algo, block.nBits, params))
         return error("%s (val.cpp) : proof of work failed, hash=%s, algo=%d, nVersion=%d, PoWHash=%s",
         __func__,
         block.GetHash().ToString(),
         algo,
         block.nVersion,
-        block.GetPoWHash(algo, params).ToString());
+        block.GetPoWHash(algo).ToString());
     return true;
 }   
 

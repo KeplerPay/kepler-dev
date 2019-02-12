@@ -66,3 +66,17 @@ std::string CBlock::ToString() const
     }
     return s.str();
 }
+
+int GetAlgo(int nVersion)
+{
+    switch (nVersion & BLOCK_VERSION_ALGO)
+    {
+        case 0:
+            return ALGO_SLOT1;
+        case BLOCK_VERSION_SLOT2:
+            return ALGO_SLOT2;
+        case BLOCK_VERSION_SLOT3:
+            return ALGO_SLOT3;           
+    }
+    return ALGO_SLOT1;
+}
