@@ -219,6 +219,73 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
     return generateBlocks(coinbaseScript, nGenerate, nMaxTries, false);
 }
 
+/*UniValue getgenerate(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 0)
+        throw std::runtime_error(
+            "getgenerate\n"
+            "\nReturn if the server is set to generate coins or not. The default is false.\n"
+            "It is set with the command line argument -gen (or " + std::string(BITCOIN_CONF_FILENAME) + " setting gen)\n"
+            "It can also be set with the setgenerate call.\n"
+            "\nResult\n"
+            "true|false      (boolean) If the server is set to generate coins or not\n"
+            "\nExamples:\n"
+            + HelpExampleCli("getgenerate", "")
+            + HelpExampleRpc("getgenerate", "")
+        );
+
+    LOCK(cs_main);
+    return GetBoolArg("-gen", DEFAULT_GENERATE);
+}*/
+
+//UniValue setgenerate(const UniValue& params, bool fHelp)
+UniValue setgenerate(const JSONRPCRequest& request)
+{
+    const UniValue& params = request.params;
+    if (request.fHelp || params.size() < 1 || params.size() > 2)
+        throw std::runtime_error(
+            "setgenerate generate ( genproclimit )\n"
+            "This command is only intended for debug purposes and might cause errors.\n"
+            "\nSet 'generate' true or false to turn generation on or off.\n"
+            "Generation is limited to 'genproclimit' processors, -1 is unlimited.\n"
+            //"See the getgenerate call for the current setting.\n"
+            "\nArguments:\n"
+            "1. generate         (boolean, required) Set to true to turn on generation, false to turn off.\n"
+            "2. genproclimit     (numeric, optional) Set the processor limit for when generation is on. Can be -1 for unlimited.\n"
+            "\nExamples:\n"
+            "\nSet the generation on with a limit of one processor\n"
+            + HelpExampleCli("setgenerate", "true 1") +
+            //"\nCheck the setting\n"
+            //+ HelpExampleCli("getgenerate", "") +
+            "\nTurn off generation\n"
+            + HelpExampleCli("setgenerate", "false") +
+            "\nUsing json rpc\n"
+            + HelpExampleRpc("setgenerate", "true, 1")
+        );
+
+    if (Params().MineBlocksOnDemand())
+        throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Use the generate method instead of setgenerate on this network");
+
+    bool fGenerate = true;
+    if (params.size() > 0)
+        fGenerate = params[0].get_bool();
+
+    //int nGenProcLimit = GetArg("-genproclimit", DEFAULT_GENERATE_THREADS);
+    int nGenProcLimit = 1;
+    if (params.size() > 1)
+    {
+        nGenProcLimit = params[1].get_int();
+        if (nGenProcLimit == 0)
+            fGenerate = false;
+    }
+    //mapArgs // Problems: See bitcoin pull #9243, zcash issue #2132
+    //mapMultiArgs["-gen"] = (fGenerate ? "1" : "0");
+    //mapMultiArgs ["-genproclimit"] = itostr(nGenProcLimit);
+    GenerateBitcoins(fGenerate, nGenProcLimit, Params(), *g_connman);
+
+    return NullUniValue;
+}
+
 UniValue getmininginfo(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 0)
@@ -968,6 +1035,9 @@ static const CRPCCommand commands[] =
 
     { "generating",         "generate",               &generate,               true,  {"nblocks","maxtries"} },
     { "generating",         "generatetoaddress",      &generatetoaddress,      true,  {"nblocks","address","maxtries"} },
+    /* Coin generation */
+    //{ "generating",         "getgenerate",            &getgenerate,            true  },
+    { "generating",         "setgenerate",            &setgenerate,            true  },
 
     { "util",               "estimatefee",            &estimatefee,            true,  {"nblocks"} },
     { "util",               "estimatepriority",       &estimatepriority,       true,  {"nblocks"} },
