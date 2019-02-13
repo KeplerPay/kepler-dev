@@ -3409,6 +3409,7 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
     // Check proof of work
     int algo = block.GetAlgo();
+    int32_t fixedVersion = block.GetBaseVersion();
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, algo, consensusParams))
         return state.DoS(100, error("%s : incorrect proof of work at %d", __func__, nHeight),
             REJECT_INVALID, "bad-diffbits");
@@ -3422,11 +3423,11 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
         return state.Invalid(false, REJECT_INVALID, "time-too-new", "block timestamp too far in the future");
 
     // check for version 2, 3 and 4 upgrades
-    if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
-       (block.nVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
-       (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height))
+    if((fixedVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
+       (fixedVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
+       (fixedVersion < 4 && nHeight >= consensusParams.BIP65Height))
             return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
-                                 strprintf("rejected nVersion=0x%08x block", block.nVersion));
+                                 strprintf("rejected fixedVersion=0x%08x block", fixedVersion));
 
     return true;
 }
