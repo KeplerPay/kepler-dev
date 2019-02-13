@@ -3409,7 +3409,7 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
     // Check proof of work
     int algo = block.GetAlgo();
-    int32_t fixedVersion = block.GetBaseVersion();
+    int32_t fixedVersion = block.nVersion; // debug  //block.GetBaseVersion();
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, algo, consensusParams))
         return state.DoS(100, error("%s : incorrect proof of work at %d", __func__, nHeight),
             REJECT_INVALID, "bad-diffbits");
