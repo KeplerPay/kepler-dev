@@ -48,6 +48,7 @@ struct Params {
     int nSubsidyHalvingInterval;
     int nMasternodePaymentsStartBlock;
     int nMNPaymentIncreaseBlocks;
+    int nMasternodeCost;
     int nInstantSendConfirmationsRequired; // in blocks
     int nInstantSendKeepLock; // in blocks
     int nBudgetPaymentsStartBlock;

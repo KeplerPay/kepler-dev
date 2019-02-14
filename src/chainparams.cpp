@@ -130,6 +130,7 @@ public:
         consensus.nMasternodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value*/ // in blocks
         consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
         consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetBlockSubsidy, increase every week
+        consensus.nMasternodeCost = 5000;
 
         consensus.nInstantSendConfirmationsRequired = 6;
         consensus.nInstantSendKeepLock = 24;
@@ -305,6 +306,7 @@ public:
         consensus.nSubsidyHalvingInterval = 210240;
         consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
         consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetBlockSubsidy, increase every week
+        consensus.nMasternodeCost = 100;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
         consensus.nBudgetPaymentsStartBlock = 4100;
@@ -471,6 +473,7 @@ public:
         consensus.nSubsidyHalvingInterval = 210240;
         consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
         consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetBlockSubsidy, increase every week
+        consensus.nMasternodeCost = 100;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
         consensus.nBudgetPaymentsStartBlock = 4100;
@@ -598,6 +601,7 @@ public:
         consensus.nSubsidyHalvingInterval = 150;
         consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
         consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetBlockSubsidy, increase every week
+        consensus.nMasternodeCost = 100;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
         consensus.nBudgetPaymentsStartBlock = 1000;
