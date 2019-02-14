@@ -745,7 +745,7 @@ QDialog#AboutDialog {
 background-color:#F8F6F6;
 }
 
-QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Dash Contents */
+QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About kepler Contents */
 margin-left:10px;
 }
 
@@ -1103,7 +1103,7 @@ min-width:410px;
 margin-right:20px;
 margin-left:0;
 margin-top:0;
-background-image: url(':/images/drkblue/dash_logo_horizontal');
+background-image: url(':/images/drkblue/kepler_logo_horizontal');
 background-repeat:none;
 }
 

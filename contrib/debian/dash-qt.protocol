@@ -1,6 +1,6 @@
 [Protocol]
-exec=dash-qt '%u'
-protocol=dash
+exec=kepler-qt '%u'
+protocol=kepler
 input=none
 output=none
 helper=true

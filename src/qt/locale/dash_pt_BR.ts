@@ -278,7 +278,7 @@
         <translation>&amp;Receber</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and dash: URIs)</source>
+        <source>Request payments (generates QR codes and kepler: URIs)</source>
         <translation>Solicitações de pagamentos (gera códigos QR e Kepler: URIs)</translation>
     </message>
     <message>
@@ -474,7 +474,7 @@
         <translation>Abrir &amp;URI...</translation>
     </message>
     <message>
-        <source>Open a dash: URI or payment request</source>
+        <source>Open a kepler: URI or payment request</source>
         <translation>Abrir um Kepler: URI ou cobrança</translation>
     </message>
     <message>
@@ -1342,7 +1342,7 @@
     </message>
     <message>
         <source>Amount of Kepler to keep anonymized</source>
-        <translation>Quantidade de dashs para manter anonimizado</translation>
+        <translation>Quantidade de keplers para manter anonimizado</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1538,9 +1538,9 @@
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/projects/p/dash/</source>
+https://www.transifex.com/projects/p/kepler/</source>
         <translation>Idioma inexistente ou tradução incompleta? Contribua com a tradução aqui:
-https://www.transifex.com/projects/p/dash/</translation>
+https://www.transifex.com/projects/p/kepler/</translation>
     </message>
     <message>
         <source>User Interface Theme:</source>
@@ -1887,7 +1887,7 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Erro no pedido de pagamento</translation>
     </message>
     <message>
-        <source>Cannot start dash: click-to-pay handler</source>
+        <source>Cannot start kepler: click-to-pay handler</source>
         <translation>Não foi possível iniciar Kepler: manipulador click-to-pay</translation>
     </message>
     <message>
@@ -3063,7 +3063,7 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Mensagem:</translation>
     </message>
     <message>
-        <source>A message that was attached to the dash: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Kepler network.</source>
+        <source>A message that was attached to the kepler: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Kepler network.</source>
         <translation>A mensagem que foi anexada ao Kepler: URI na qual será gravada na transação para sua referência. Nota: Essa mensagem não será gravada publicamente na rede Kepler.</translation>
     </message>
     <message>
@@ -3847,7 +3847,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     </message>
 </context>
 <context>
-    <name>dash-core</name>
+    <name>kepler-core</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Vincular ao endereço fornecido e sempre escutar nele. Use a notação [host]:port para IPv6</translation>

@@ -1,11 +1,11 @@
 Sample configuration files for:
 
-SystemD: dashd.service
-Upstart: dashd.conf
-OpenRC:  dashd.openrc
-         dashd.openrcconf
-CentOS:  dashd.init
-OS X:    org.dash.dashd.plist
+SystemD: keplerd.service
+Upstart: keplerd.conf
+OpenRC:  keplerd.openrc
+         keplerd.openrcconf
+CentOS:  keplerd.init
+OS X:    org.kepler.keplerd.plist
 
 have been made available to assist packagers in creating node packages here.
 

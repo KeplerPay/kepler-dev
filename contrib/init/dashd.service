@@ -3,13 +3,13 @@ Description=Kepler's distributed currency daemon
 After=network.target
 
 [Service]
-User=dashcore
-Group=dashcore
+User=keplercore
+Group=keplercore
 
 Type=forking
-PIDFile=/var/lib/dashd/dashd.pid
-ExecStart=/usr/bin/dashd -daemon -pid=/var/lib/dashd/dashd.pid \
--conf=/etc/dashcore/dash.conf -datadir=/var/lib/dashd -disablewallet
+PIDFile=/var/lib/keplerd/keplerd.pid
+ExecStart=/usr/bin/keplerd -daemon -pid=/var/lib/keplerd/keplerd.pid \
+-conf=/etc/keplercore/kepler.conf -datadir=/var/lib/keplerd -disablewallet
 
 Restart=always
 PrivateTmp=true

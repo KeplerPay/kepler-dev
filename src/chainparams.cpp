@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2014-2017 The kepler Core developers
 // Copyright (c) 2019 The Kepler developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -251,7 +251,7 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xd48ce4729811f69dfa22e30d6cd574ddba8ee323e4b8aa0cfe9781958a45f0f4"));
 
 
-        //vSeeds.push_back(CDNSSeedData("dash.org", "dnsseed.dash.org"));
+        //vSeeds.push_back(CDNSSeedData("kepler.org", "dnsseed.kepler.org"));
 
         // Kepler addresses start with 'K'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,45);
@@ -415,7 +415,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.push_back(CDNSSeedData("dashdot.io",  "testnet-seed.dashdot.io"));
+        vSeeds.push_back(CDNSSeedData("keplerdot.io",  "testnet-seed.keplerdot.io"));
         vSeeds.push_back(CDNSSeedData("masternode.io", "test.dnsseed.masternode.io"));
 
         // Testnet Kepler addresses start with 'y'
@@ -548,7 +548,7 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        //vSeeds.push_back(CDNSSeedData("dashevo.org",  "devnet-seed.dashevo.org"));
+        //vSeeds.push_back(CDNSSeedData("keplerevo.org",  "devnet-seed.keplerevo.org"));
 
         // Testnet Kepler addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);

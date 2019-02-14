@@ -9,7 +9,7 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between dash-cli and dashd)
+ * CBaseChainParams defines the base parameters (shared between kepler-cli and keplerd)
  * of a given instance of the Kepler system.
  */
 class CBaseChainParams

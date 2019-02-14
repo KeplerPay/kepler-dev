@@ -2,9 +2,9 @@
 
 This issue tracker is only for technical issues related to Kepler Core.
 
-General Kepler questions and/or support requests and are best directed to the [Keplerpay Reddit](https://www.reddit.com/r/dashpay/).
+General Kepler questions and/or support requests and are best directed to the [Keplerpay Reddit](https://www.reddit.com/r/keplerpay/).
 
-To report critical security issues, email infosec@dash.org instead of creating Github issues.
+To report critical security issues, email infosec@kepler.org instead of creating Github issues.
 
 ### Describe the issue
 

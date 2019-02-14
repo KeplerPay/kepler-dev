@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.dash.Kepler-Qt";
+        return @"org.kepler.Kepler-Qt";
     } else {
         return [self __bundleIdentifier];
     }
