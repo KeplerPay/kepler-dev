@@ -2551,7 +2551,7 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
         for (int i = 0; i < 100 && pindex != NULL; i++)
         {
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), true);
-            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
+            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0) // !!!
                 ++nUpgraded;
             pindex = pindex->pprev;
         }
@@ -3409,7 +3409,7 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
     // Check proof of work
     int algo = block.GetAlgo();
-    int32_t fixedVersion = block.nVersion; // debug  //block.GetBaseVersion();
+    int32_t blockVersion = block.nVersion; // !!!  //block.GetBaseVersion();
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, algo, consensusParams))
         return state.DoS(100, error("%s : incorrect proof of work at %d", __func__, nHeight),
             REJECT_INVALID, "bad-diffbits");
@@ -3423,11 +3423,11 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
         return state.Invalid(false, REJECT_INVALID, "time-too-new", "block timestamp too far in the future");
 
     // check for version 2, 3 and 4 upgrades
-    if((fixedVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
-       (fixedVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
-       (fixedVersion < 4 && nHeight >= consensusParams.BIP65Height))
+    if((blockVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
+       (blockVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
+       (blockVersion < 4 && nHeight >= consensusParams.BIP65Height))
             return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
-                                 strprintf("rejected fixedVersion=0x%08x block", fixedVersion));
+                                 strprintf("rejected nVersion=0x%08x block", blockVersion));
 
     return true;
 }
@@ -3515,8 +3515,6 @@ static bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state
         if (pindexPrev->nStatus & BLOCK_FAILED_MASK)
             return state.DoS(100, error("%s: prev block invalid", __func__), REJECT_INVALID, "bad-prevblk");
 
-        assert(pindexPrev);
-
         int nAlgo = block.GetAlgo();
         int nAlgoCount = 1;
         int nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount;
@@ -3530,6 +3528,8 @@ static bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state
         }
         if (nAlgoCount > nMaxSeqCount)
             return error("%s: too many blocks from the same algorithm (limit=%d)", __func__, nMaxSeqCount);
+        
+        assert(pindexPrev);
 
         if (fCheckpointsEnabled && !CheckIndexAgainstCheckpoint(pindexPrev, state, chainparams, hash))
             return error("%s: CheckIndexAgainstCheckpoint(): %s", __func__, state.GetRejectReason().c_str());
