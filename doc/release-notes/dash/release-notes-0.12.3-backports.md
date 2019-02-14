@@ -444,7 +444,7 @@
 - [`c2e007538`](https://github.com/dashpay/dash/commit/c2e007538) Merge pull request #1849 from codablock/pr_backport_bitcoin_0.14-4
 - [`8f13e2537`](https://github.com/dashpay/dash/commit/8f13e2537) Remove doubled "./" from bitcoin-util-test.json
 - [`6989f94d6`](https://github.com/dashpay/dash/commit/6989f94d6) Get rid of InsecureRand and use equivalent FastRandomContext
-- [`5b8946cad`](https://github.com/dashpay/dash/commit/5b8946cad) Add Kepler Copyright to Makefiles modified by Kepler developers
+- [`5b8946cad`](https://github.com/dashpay/dash/commit/5b8946cad) Add Dash Copyright to Makefiles modified by Dash developers
 - [`7604a3a0e`](https://github.com/dashpay/dash/commit/7604a3a0e) Keplerify INSTALL.md and build-unix.md
 - [`89e959d30`](https://github.com/dashpay/dash/commit/89e959d30) Merge #8936: Report NodeId in misbehaving debug
 - [`b84ea46ed`](https://github.com/dashpay/dash/commit/b84ea46ed) Merge #8965: Mention that PPA doesn't support Debian
