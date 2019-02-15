@@ -32,6 +32,7 @@ static CBlock BuildBlockTestCase() {
     block.nVersion = 42;
     block.hashPrevBlock = GetRandHash();
     block.nBits = 0x207fffff;
+    block.SetAlgo(2); // algo 3, rainforest
 
     tx.vin[0].prevout.hash = GetRandHash();
     tx.vin[0].prevout.n = 0;
@@ -47,7 +48,7 @@ static CBlock BuildBlockTestCase() {
     bool mutated;
     block.hashMerkleRoot = BlockMerkleRoot(block, &mutated);
     assert(!mutated);
-    while (!CheckProofOfWork(block.GetHash(), block.nBits, Params().GetConsensus())) ++block.nNonce;
+    while (!CheckProofOfWork(block.GetHash(), block.GetAlgo(), block.nBits, Params().GetConsensus())) ++block.nNonce;
     return block;
 }
 
@@ -285,11 +286,12 @@ BOOST_AUTO_TEST_CASE(EmptyBlockRoundTripTest)
     block.nVersion = 42;
     block.hashPrevBlock = GetRandHash();
     block.nBits = 0x207fffff;
+    block.SetAlgo(1); // algo 2: argon2d4096
 
     bool mutated;
     block.hashMerkleRoot = BlockMerkleRoot(block, &mutated);
     assert(!mutated);
-    while (!CheckProofOfWork(block.GetHash(), block.nBits, Params().GetConsensus())) ++block.nNonce;
+    while (!CheckProofOfWork(block.GetHash(), block.GetAlgo(), block.nBits, Params().GetConsensus())) ++block.nNonce;
 
     // Test simple header round-trip with only coinbase
     {
