@@ -6,13 +6,13 @@ reset-files.bash
 *.tar.gz
 
 *.exe
-src/dash
-src/dashd
-src/dash-cli
-src/dash-tx
-src/test/test_dash
-src/qt/test/test_dash-qt
-src/bench/bench_dash
+src/kepler
+src/keplerd
+src/kepler-cli
+src/kepler-tx
+src/test/test_kepler
+src/qt/test/test_kepler-qt
+src/bench/bench_kepler
 
 # autoreconf
 Makefile.in
@@ -35,8 +35,8 @@ config.log
 config.status
 configure
 libtool
-src/config/dash-config.h
-src/config/dash-config.h.in
+src/config/kepler-config.h
+src/config/kepler-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -80,12 +80,12 @@ libconftest.dylib*
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-dash-qt
+kepler-qt
 Kepler-Qt.app
 
 # Unit-tests
 Makefile.test
-dash-qt_test
+kepler-qt_test
 src/test/buildenv.py
 
 # Resources cpp
@@ -99,7 +99,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_dash.coverage/
+test_kepler.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -117,15 +117,15 @@ qa/cache/*
 .autotools
 /doc/doxygen/
 
-libdashconsensus.pc
+libkeplerconsensus.pc
 contrib/devtools/split-debug.sh
-src/qt/dash-qt.bash
+src/qt/kepler-qt.bash
 qa/pull-tester/tests-config.sh
 
 #development symlinks
-dash-cli
-dashd
-dash-qt
+kepler-cli
+keplerd
+kepler-qt
 make
 
 /docker/bin
