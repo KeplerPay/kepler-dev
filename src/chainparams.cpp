@@ -130,7 +130,7 @@ public:
         consensus.nMasternodePaymentsIncreaseBlock = 158000; // actual historical value
         consensus.nMasternodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value*/ // in blocks
         consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
-        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetBlockSubsidy, increase every week
+        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetMasternodePayment, increase every week
         consensus.nMasternodeCost = 5000;
 
         consensus.nInstantSendConfirmationsRequired = 6;
@@ -306,7 +306,7 @@ public:
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 210240;
         consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
-        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetBlockSubsidy, increase every week
+        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetMasternodePayment, increase every week
         consensus.nMasternodeCost = 100;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
@@ -473,7 +473,7 @@ public:
         strNetworkID = "dev";
         consensus.nSubsidyHalvingInterval = 210240;
         consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
-        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetBlockSubsidy, increase every week
+        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetMasternodePayment, increase every week
         consensus.nMasternodeCost = 100;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
@@ -601,7 +601,7 @@ public:
         strNetworkID = "regtest";
         consensus.nSubsidyHalvingInterval = 150;
         consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
-        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetBlockSubsidy, increase every week
+        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetMasternodePayment, increase every week
         consensus.nMasternodeCost = 100;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
