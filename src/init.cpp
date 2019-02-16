@@ -1053,9 +1053,9 @@ bool AppInitParameterInteraction()
     fAllowPrivateNet = GetBoolArg("-allowprivatenet", DEFAULT_ALLOWPRIVATENET);
 
     // determine algorithm to be used for any mining for this instance
-    std::string strAlgo = GetArg("-algo", "sha256d");
+    std::string strAlgo = GetArg("-algo", "neoscrypt");
     transform(strAlgo.begin(),strAlgo.end(),strAlgo.begin(),::tolower);
-    if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d") // CHANGE ALGO
+    if (strAlgo == "neoscrypt")
         miningAlgo = ALGO_SLOT1;
     else if (strAlgo == "argon2d" || strAlgo == "argon" || strAlgo == "argon2")
         miningAlgo = ALGO_SLOT2;

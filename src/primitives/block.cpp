@@ -11,6 +11,7 @@
 #include "utilstrencodings.h"
 #include "crypto/common.h"
 
+#include "crypto/neoscrypt/neoscrypt.h"
 #include "crypto/hashargon2d.h"
 extern "C"{
 #include "crypto/rainforest/rainforest.h"
@@ -31,7 +32,10 @@ uint256 CBlockHeader::GetPoWHash(int algo) const
     switch (algo)
     {
         case ALGO_SLOT1:
-            return GetHash();
+            uint256 thash;
+            unsigned int profile = 0x0;
+            neoscrypt((unsigned char *) &nVersion, (unsigned char *) &thash, profile);
+            return thash;
         case ALGO_SLOT2:
             return HashArgon2d(BEGIN(nVersion), END(nNonce));
         case ALGO_SLOT3:

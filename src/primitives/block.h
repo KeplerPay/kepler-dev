@@ -13,7 +13,7 @@
 
     /** Multi-Algo definitions used to encode algorithm in nVersion */
     enum {
-        ALGO_SLOT1 = 0,  // Sha256d
+        ALGO_SLOT1 = 0,  // NeoScrypt
         ALGO_SLOT2 = 1,  // Argon2d-4096
         ALGO_SLOT3 = 2,  // Rainforest
         NUM_ALGOS

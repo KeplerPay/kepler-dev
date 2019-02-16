@@ -1247,7 +1247,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
             "  \"headers\": xxxxxx,        (numeric) the current number of headers we have validated\n"
             "  \"bestblockhash\": \"...\", (string) the hash of the currently best block\n"
             "  \"difficulty\": xxxxxx,     (numeric) the current difficulty for active mining algorithm\n"
-            "  \"difficulty_sha256d\": xxxxxx,   (numeric) the current difficulty for sha256d\n"
+            "  \"difficulty_neoscrypt\": xxxxxx,   (numeric) the current difficulty for neoscrypt\n"
             "  \"difficulty_argon2d\": xxxxxx, (numeric) the current difficulty for argon2d\n"
             "  \"difficulty_rainforest\": xxxxxx, (numeric) the current difficulty for rainforest\n"
             "  \"mediantime\": xxxxxx,     (numeric) median time for the current best block\n"
@@ -1287,7 +1287,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     obj.push_back(Pair("headers",               pindexBestHeader ? pindexBestHeader->nHeight : -1));
     obj.push_back(Pair("bestblockhash",         chainActive.Tip()->GetBlockHash().GetHex()));
     obj.push_back(Pair("difficulty",            (double)GetDifficulty(NULL, miningAlgo)));
-    obj.push_back(Pair("difficulty_sha256d",      (double)GetDifficulty(NULL, ALGO_SLOT1)));
+    obj.push_back(Pair("difficulty_neoscrypt",      (double)GetDifficulty(NULL, ALGO_SLOT1)));
     obj.push_back(Pair("difficulty_argon2d",    (double)GetDifficulty(NULL, ALGO_SLOT2)));
     obj.push_back(Pair("difficulty_rainforest",    (double)GetDifficulty(NULL, ALGO_SLOT3)));
     obj.push_back(Pair("mediantime",            (int64_t)chainActive.Tip()->GetMedianTimePast()));

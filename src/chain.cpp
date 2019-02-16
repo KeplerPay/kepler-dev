@@ -134,7 +134,7 @@ std::string GetAlgoName(int algo, uint32_t time)
     switch (algo)
     {
         case ALGO_SLOT1:
-            return std::string("Sha256d"); // not defined
+            return std::string("NeoScrypt");
         case ALGO_SLOT2:
             return std::string("Argon2d");
         case ALGO_SLOT3:
