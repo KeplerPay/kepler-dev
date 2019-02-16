@@ -357,7 +357,9 @@ crypto_libkepler_crypto_a_SOURCES += \
   crypto/argon2/thread.c \
   crypto/argon2/thread.h \
   crypto/rainforest/rainforest.c \
-  crypto/rainforest/rainforest.h
+  crypto/rainforest/rainforest.h \
+  crypto/neoscrypt/neoscrypt.c \
+  crypto/neoscrypt/neoscrypt.h
 
 # consensus: shared between all executables that validate any consensus rules.
 libkepler_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
