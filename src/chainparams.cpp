@@ -204,7 +204,7 @@ public:
         pchMessageStart[2] = 0xde;
         pchMessageStart[3] = 0xbe;
         vAlertPubKey = ParseHex("044282e4ccc62fa9a31ea871f9664e8927c84a82a71e0103f4dd7fe56579a160abbab00770595e137f150e325733094e183d66e049ecac6d12ac1f6b402a0a9b8b");
-        nDefaultPort = 9999;
+        nDefaultPort = 12102;
         nPruneAfterHeight = 100000;
 
         // timestamp, nNonce, nBits, nVersion, genesisReward 
@@ -369,7 +369,7 @@ public:
         pchMessageStart[2] = 0xca;
         pchMessageStart[3] = 0xff;
         vAlertPubKey = ParseHex("04b8bbf7e36419f96fc99b7d9d04a62e8d9a28f6c8dc548e7b9b84b44c380693b76e730f28d18894bc05a0a72d5bb8e35221dc0d375f8552c9485995f60a94d23a");
-        nDefaultPort = 19999;
+        nDefaultPort = 12202;
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1390666206UL, 3861367235UL, 0x1e0ffff0, 1, 50 * COIN);
@@ -535,7 +535,7 @@ public:
         pchMessageStart[2] = 0xff;
         pchMessageStart[3] = 0xce;
         vAlertPubKey = ParseHex("04b8bbf7e36419f96fc99b7d9d04a62e8d9a28f6c8dc548e7b9b84b44c380693b76e730f28d18894bc05a0a72d5bb8e35221dc0d375f8552c9485995f60a94d23a");
-        nDefaultPort = 19999;
+        nDefaultPort = 12202;
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1417713337, 1096447, 0x207fffff, 1, 50 * COIN);
