@@ -29,6 +29,19 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     const CBlockIndex* pindexFirst = pindexPrev;
 
+    // Go back by what we want to be nAveragingInterval blocks
+    for (int i = 0; pindexFirst && i < params.nPoWAveragingInterval - 1; i++)
+    {
+        pindexFirst = pindexFirst->pprev; // FIX (???), test
+        pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
+        if (pindexFirst == NULL)
+            return nProofOfWorkLimit.GetCompact();
+    }
+
+    int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
+
+    //LogPrintf("GetNextWorkRequired(Algo=%d):   nActualTimespan = %d before bounds   %d   %d\n", algo, nActualTimespan, pindexLast->GetMedianTimePast(), pindexFirst->GetMedianTimePast());
+    
     // Initial mining phase, allow up to 20% difficulty change per block
     int64_t nMinActualTimespan;
     int64_t nMaxActualTimespan;
@@ -40,18 +53,6 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         nMinActualTimespan = params.nPoWAveragingTargetTimespan() * (100 - params.nMaxAdjustUp) / 100;
         nMaxActualTimespan = params.nPoWAveragingTargetTimespan() * (100 + params.nMaxAdjustDown) / 100;
     }
-
-    // Go back by what we want to be nAveragingInterval blocks
-    for (int i = 0; pindexFirst && i < params.nPoWAveragingInterval - 1; i++)
-    {
-        pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
-        if (pindexFirst == NULL)
-            return nProofOfWorkLimit.GetCompact();
-    }
-
-    int64_t nActualTimespan = pindexLast->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
-
-    //LogPrintf("GetNextWorkRequired(Algo=%d):   nActualTimespan = %d before bounds   %d   %d\n", algo, nActualTimespan, pindexLast->GetMedianTimePast(), pindexFirst->GetMedianTimePast());
 
     if (nActualTimespan < nMinActualTimespan)
         nActualTimespan = nMinActualTimespan;
