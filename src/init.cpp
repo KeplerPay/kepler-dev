@@ -238,6 +238,7 @@ void PrepareShutdown()
     if (pwalletMain)
         pwalletMain->Flush(false);
 #endif
+    GenerateBitcoins(false, 0, Params(), *g_connman); // shutdown setgenerate miner
     MapPort(false);
     UnregisterValidationInterface(peerLogic.get());
     peerLogic.reset();
