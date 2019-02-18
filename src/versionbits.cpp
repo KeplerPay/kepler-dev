@@ -11,16 +11,6 @@ const struct BIP9DeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION
         /*.name =*/ "testdummy",
         /*.gbt_force =*/ true,
         /*.check_mn_protocol =*/ false,
-    },
-    {
-        /*.name =*/ "dip0001",
-        /*.gbt_force =*/ true,
-        /*.check_mn_protocol =*/ true,
-    },
-    {
-        /*.name =*/ "bip147",
-        /*.gbt_force =*/ true,
-        /*.check_mn_protocol =*/ false,
     }
 };
 

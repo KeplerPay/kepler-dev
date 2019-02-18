@@ -22,8 +22,8 @@ extern "C"{
 
 uint256 CBlockHeader::GetHash() const
 {
-    return HashX11(BEGIN(nVersion), END(nNonce)); // Might change to SHA256 //     return SerializeHash(*this);
-    // idk why I did this in monea     return Hash(BEGIN(nVersion), END(nNonce));
+    return SerializeHash(*this); // SHA256
+    //return HashX11(BEGIN(nVersion), END(nNonce));// idk why I did this in monea     return Hash(BEGIN(nVersion), END(nNonce));
 }
 
 uint256 CBlockHeader::GetPoWHash(int algo) const
@@ -52,7 +52,10 @@ uint256 CBlockHeader::GetPoWHash(int algo) const
         }   
     }
     // catch-all if above doesn't match anything to algo
-    return GetHash();
+    uint256 thash;
+    unsigned int profile = 0x0;
+    neoscrypt((unsigned char *) &nVersion, (unsigned char *) &thash, profile);
+    return thash;
 }
 
 std::string CBlock::ToString() const

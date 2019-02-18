@@ -80,7 +80,7 @@ static CBlock CreateDevNetGenesisBlock(const uint256 &prevBlockHash, const std::
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "16/02/2019 segunda prueba";
+    const char* pszTimestamp = "18/02/2019 tercera prueba";
     const CScript genesisOutputScript = CScript() << ParseHex("04b8bbf7e36419f96fc99b7d9d04a62e8d9a28f6c8dc548e7b9b84b44c380693b76e730f28d18894bc05a0a72d5bb8e35221dc0d375f8552c9485995f60a94d23a") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -150,13 +150,12 @@ public:
         consensus.DIP0001Height = 1;
 
         //consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
-        consensus.powLimit[ALGO_SLOT1] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit[ALGO_SLOT1] = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.powLimit[ALGO_SLOT2] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.powLimit[ALGO_SLOT3] = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
-        //consensus.nPowTargetSpacing = 2.5 * 60; // Kepler: 2.5 minutes
         
-        consensus.nPowTargetSpacing = 60; // 60 second block time
+        consensus.nPowTargetSpacing = 60; // 60 second block time, Dash: Was 2.5 * 60
         consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
         consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
         consensus.nMaxAdjustUp = 4; // 4% adjustment upwards
@@ -168,7 +167,7 @@ public:
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
 
 
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 8;// was 28 but max is 8
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
@@ -201,7 +200,7 @@ public:
         nPruneAfterHeight = 100000;
 
         // timestamp, nNonce, nBits, nVersion, genesisReward 
-        genesis = CreateGenesisBlock(1550363306, 30890409, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1550466138, 34566243, 0x1e0ffff0, 1, 50 * COIN);
         if(false)
         {
             printf("Searching for mainnet genesis block...\n");
@@ -235,20 +234,21 @@ public:
             printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
             printf("genesis.GetPoWHash = %s\n", genesis.GetPoWHash(algo).ToString().c_str());
             printf("genesis.hashMerkleRoot = %s\n", BlockMerkleRoot(genesis).ToString().c_str());
-}
+        }
 
 
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x23aa8648276462cb5e35dd53a2cef479c729614c922e73544085b7607d15358b"));
-        assert(genesis.hashMerkleRoot == uint256S("0x1265270e78df0034323187af914f7ab5c4b076dc20c12fff08c23e9c2496ff3f"));
+        assert(consensus.hashGenesisBlock == uint256S("0xda7cf0305dd1dd0c59ea0f2b5f0cd2a65ebe5ce4d70b01907e17b830b6dbdf23"));
+        assert(genesis.hashMerkleRoot == uint256S("0x800949370d85fb9011d5180982f3c623227b7ca6508cc00a011adede2714d0ac"));
 
 
-        //vSeeds.push_back(CDNSSeedData("kepler.org", "dnsseed.kepler.org"));
+        vSeeds.push_back(CDNSSeedData("kepler.cash", "seed1.kepler.cash"));
+        vSeeds.push_back(CDNSSeedData("kepler.cash", "seed2.kepler.cash"));
 
         // Kepler addresses start with 'K'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,45);
-        // Kepler script addresses start with '8'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,18);
+        // Kepler script addresses start with '9'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,20);
         // Kepler private keys start with '7' or 'X'
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
         // Kepler BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
@@ -391,8 +391,10 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.push_back(CDNSSeedData("keplerdot.io",  "testnet-seed.keplerdot.io"));
-        vSeeds.push_back(CDNSSeedData("masternode.io", "test.dnsseed.masternode.io"));
+        /*vSeeds.push_back(CDNSSeedData("keplerdot.io",  "testnet-seed.keplerdot.io"));
+        vSeeds.push_back(CDNSSeedData("masternode.io", "test.dnsseed.masternode.io"));*/
+        vSeeds.push_back(CDNSSeedData("kepler.cash", "testseed.kepler.cash"));
+
 
         // Testnet Kepler addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
