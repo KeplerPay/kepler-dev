@@ -243,7 +243,7 @@ public:
 
 
         vSeeds.push_back(CDNSSeedData("kepler.cash", "seed1.kepler.cash"));
-        vSeeds.push_back(CDNSSeedData("kepler.cash", "seed2.kepler.cash"));
+        //vSeeds.push_back(CDNSSeedData("kepler.cash", "seed2.kepler.cash"));
 
         // Kepler addresses start with 'K'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,45);
