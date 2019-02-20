@@ -1357,20 +1357,20 @@ bool IsInitialBlockDownload()
     if (latchToFalse.load(std::memory_order_relaxed))
         return false;
     if (fImporting || fReindex){    
-        LogPrintf("1 return true");
+        //LogPrintf("1 return true"); // debug
         return true;
     }   
     const CChainParams& chainParams = Params();
     if (chainActive.Tip() == NULL){ 
-        LogPrintf("tip null");
+        //LogPrintf("tip null");
         return true;
     }   
     if (chainActive.Tip()->nChainWork < UintToArith256(chainParams.GetConsensus().nMinimumChainWork)){
-        LogPrintf("nMinimumChainWork");
+        //LogPrintf("nMinimumChainWork");
         return true;
     }
     if (chainActive.Tip()->GetBlockTime() < (GetTime() - nMaxTipAge)){
-        LogPrintf("Tip().GetBlockTime() < (GetTime() - maxTipAge) 6h");
+        //LogPrintf("Tip().GetBlockTime() < (GetTime() - maxTipAge) 6h");
         return true;
     }
     latchToFalse.store(true, std::memory_order_relaxed);
@@ -2547,7 +2547,9 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
         for (int i = 0; i < 100 && pindex != NULL; i++)
         {
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), true);
-            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0) // !!!
+            /* Fix copied from Myriadcoin: we only use the lowest 8 bits for BIP9, so we mask the chainid and algo (0x00FFFF00)*/
+            //if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
+            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && ((pindex->nVersion & ~nExpectedVersion) & 0xFF0000FF) != 0)
                 ++nUpgraded;
             pindex = pindex->pprev;
         }
