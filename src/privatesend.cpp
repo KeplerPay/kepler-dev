@@ -551,7 +551,7 @@ void ThreadCheckPrivateSend(CConnman& connman)
                 netfulfilledman.CheckAndRemove();
                 mnodeman.ProcessMasternodeConnections(connman);
                 mnodeman.CheckAndRemove(connman);
-                mnodeman.WarnMasternodeDaemonUpdates();
+                //mnodeman.WarnMasternodeDaemonUpdates(); //disabled for now
                 mnpayments.CheckAndRemove();
                 instantsend.CheckAndRemove();
             }

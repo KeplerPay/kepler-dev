@@ -2549,8 +2549,10 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus(), true);
             /* Fix copied from Myriadcoin: we only use the lowest 8 bits for BIP9, so we mask the chainid and algo (0x00FFFF00)*/
             //if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
-            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && ((pindex->nVersion & ~nExpectedVersion) & 0xFF0000FF) != 0)
+            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && ((pindex->nVersion & ~nExpectedVersion) & 0xFF0000FF) != 0){
                 ++nUpgraded;
+                //LogPrintf("expected 0x%08x, recieved 0x%08x at height %d \n", nExpectedVersion, pindex->nVersion, pindex->nHeight); // debug
+            }   
             pindex = pindex->pprev;
         }
         if (nUpgraded > 0)
