@@ -125,13 +125,10 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
-        consensus.nSubsidyHalvingInterval = 210240; // Note: actual number of blocks per calendar year is
-        /*consensus.nMasternodePaymentsStartBlock = 100000; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
-        consensus.nMasternodePaymentsIncreaseBlock = 158000; // actual historical value
-        consensus.nMasternodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value*/ // in blocks
-        consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
-        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetMasternodePayment, increase every week
-        consensus.nMasternodeCost = 5000;
+        consensus.nSubsidyHalvingInterval = 1051200; // Note: Number of blocks per calendar year is 262800 :: 525600 mins por año
+        consensus.nMasternodePaymentsStartBlock = 31995; // 1 month and 2 weeks after genesis
+        consensus.nMNPaymentIncreaseBlocks = 5040; // steps in GetMasternodePayment, increase every week. 1 week = 10080 mins
+        consensus.nMasternodeCost = 10000;
 
         consensus.nInstantSendConfirmationsRequired = 6;
         consensus.nInstantSendKeepLock = 24;
@@ -149,13 +146,12 @@ public:
         consensus.BIP34Height = 1;consensus.BIP65Height = 1;consensus.BIP66Height = 1; 
         consensus.DIP0001Height = 1;
 
-        //consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
-        consensus.powLimit[ALGO_SLOT1] = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.powLimit[ALGO_SLOT2] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.powLimit[ALGO_SLOT3] = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit[ALGO_SLOT1] = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // NeoScrypt
+        consensus.powLimit[ALGO_SLOT2] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // Argon2-4096
+        consensus.powLimit[ALGO_SLOT3] = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // Rainforest
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
         
-        consensus.nPowTargetSpacing = 60; // 60 second block time, Dash: Was 2.5 * 60
+        consensus.nPowTargetSpacing = 120; // 120 second block time, Dash: Was 2.5 * 60
         consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
         consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
         consensus.nMaxAdjustUp = 4; // 4% adjustment upwards
@@ -170,15 +166,6 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 8;// was 28 but max is 8
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
-
-        // Deployment of BIP68, BIP112, and BIP113.
-
-        // Deployment of BIP147, example of BIP9 deployment with masternodes
-        /*consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1524477600; // Apr 23th, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1556013600; // Apr 23th, 2019
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 4032;
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226; // 80% of 4032*/
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000000000006f82a1600"); // 156 getblockchaininfo: chainwork
@@ -261,7 +248,7 @@ public:
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
-        fMiningRequiresPeers = false; // !!!
+        fMiningRequiresPeers = true; // set to false for debug
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
@@ -296,9 +283,9 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nSubsidyHalvingInterval = 210240;
-        consensus.nMasternodePaymentsStartBlock = 40; // 2 months after genesis
-        consensus.nMNPaymentIncreaseBlocks = 10; // steps in GetMasternodePayment, increase every week
+        consensus.nSubsidyHalvingInterval = 1051200;
+        consensus.nMasternodePaymentsStartBlock = 130; // 2 months after genesis
+        consensus.nMNPaymentIncreaseBlocks = 15; // steps in GetMasternodePayment, increase every week
         consensus.nMasternodeCost = 100;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
@@ -314,17 +301,17 @@ public:
         consensus.BIP34Height = 5;
         consensus.BIP65Height = 10;
         consensus.BIP66Height = 15; 
-        consensus.DIP0001Height = 5500;
+        consensus.DIP0001Height = 20;
         consensus.powLimit[ALGO_SLOT1] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.powLimit[ALGO_SLOT2] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.powLimit[ALGO_SLOT3] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
 
-        consensus.nPowTargetSpacing = 60; // 60 second block time
+        consensus.nPowTargetSpacing = 120; // 120 second block time
         consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
         consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
         consensus.nMaxAdjustUp = 4; // 4% adjustment upwards
-        consensus.nBlockSequentialAlgoMaxCount = 10;
+        consensus.nBlockSequentialAlgoMaxCount = 20;
 
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
@@ -340,10 +327,10 @@ public:
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x0000000004a7878409189b7a8f75b3815d9b8c45ee8f79955a6c727d83bddb04"); // 143200
 
-        pchMessageStart[0] = 0xce;
-        pchMessageStart[1] = 0xe2;
-        pchMessageStart[2] = 0xca;
-        pchMessageStart[3] = 0xff;
+        pchMessageStart[0] = 0xcd;
+        pchMessageStart[1] = 0x5h;
+        pchMessageStart[2] = 0xd6;
+        pchMessageStart[3] = 0xf8;
         vAlertPubKey = ParseHex("04b8bbf7e36419f96fc99b7d9d04a62e8d9a28f6c8dc548e7b9b84b44c380693b76e730f28d18894bc05a0a72d5bb8e35221dc0d375f8552c9485995f60a94d23a");
         nDefaultPort = 12202;
         nPruneAfterHeight = 1000;
@@ -423,12 +410,12 @@ public:
         strSporkAddress = "yjPtiKh2uwk3bDutTEA2q9mCtXyiZRWn55";
 
         checkpointData = (CCheckpointData) {
-            boost::assign::map_list_of
+            /*boost::assign::map_list_of
             (    261, uint256S("0x00000c26026d0815a7e2ce4fa270775f61403c040647ff2c3091f99e894a4618"))
             (   1999, uint256S("0x00000052e538d27fa53693efe6fb6892a0c1d26c0235f599171c48a3cce553b1"))
             (   2999, uint256S("0x0000024bc3f4f4cb30d29827c13d921ad77d2c6072e586c7f60d83c2722cdcc5"))
             ( 100000, uint256S("0x0000000003aa53e24b6e60ef97642e4193611f2bcb75ea1fa8105f0b5ffd5242"))
-            ( 143200, uint256S("0x0000000004a7878409189b7a8f75b3815d9b8c45ee8f79955a6c727d83bddb04"))
+            ( 143200, uint256S("0x0000000004a7878409189b7a8f75b3815d9b8c45ee8f79955a6c727d83bddb04"))*/
         };
 
         chainTxData = ChainTxData{        
@@ -473,7 +460,7 @@ public:
         consensus.powLimit[ALGO_SLOT3] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
 
-        consensus.nPowTargetSpacing = 60; // 60 second block time
+        consensus.nPowTargetSpacing = 120; // 120 second block time
         consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
         consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
         consensus.nMaxAdjustUp = 4; // 4% adjustment upwards
@@ -588,7 +575,7 @@ public:
         consensus.powLimit[ALGO_SLOT3] = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
 
-        consensus.nPowTargetSpacing = 60; // 60 second block time
+        consensus.nPowTargetSpacing = 120; // 120 second block time
         consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
         consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
         consensus.nMaxAdjustUp = 4; // 4% adjustment upwards

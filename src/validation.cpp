@@ -1311,8 +1311,7 @@ CAmount GetBlockSubsidy(int nPrevHeight, const Consensus::Params& consensusParam
         // 2% premine
         nSubsidy = 600000 * COIN;
     }
-    // CHANGE ME // BUG // ERROR // HELP
-    else if(nHeight < 10){   // 21600, set to 10 for testing until release :)
+    else if(nHeight < 21900){   // 21900, set to 10 for testing until release :)
         // 1 month period as an incentive to miners
         nSubsidy = 50 * COIN;
     }
@@ -1333,14 +1332,14 @@ CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
 {
     CAmount ret = 0; // start at 0
 
-    int paymentStart = Params().GetConsensus().nMasternodePaymentsStartBlock; // 43800
+    int paymentStart = Params().GetConsensus().nMasternodePaymentsStartBlock; // 31995
     int step = Params().GetConsensus().nMNPaymentIncreaseBlocks; // 5040
 
-                                                                      // mainnet:
-    if(nHeight > paymentStart)                  ret = blockValue * 0.2; // 43800 - 20%
-    if(nHeight > paymentStart+ (step* 1)) ret = blockValue * 0.3; // 48840 - 30%
-    if(nHeight > paymentStart+ (step* 2)) ret = blockValue * 0.35; // 53880 - 35%
-    if(nHeight > paymentStart+ (step* 3)) ret = blockValue * 0.4; // 58920 - 40%
+                                                                    // mainnet:
+    if(nHeight > paymentStart)             ret = blockValue * 0.2; // 31995 - 20%
+    if(nHeight > paymentStart+ (step* 1)) ret = blockValue * 0.3; // 37035 - 30%
+    if(nHeight > paymentStart+ (step* 2)) ret = blockValue * 0.35; // 42075 - 35%
+    if(nHeight > paymentStart+ (step* 3)) ret = blockValue * 0.4; // 47115 - 40%
 
     return ret;
 }
