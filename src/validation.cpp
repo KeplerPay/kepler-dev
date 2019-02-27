@@ -1336,7 +1336,7 @@ CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
     int step = Params().GetConsensus().nMNPaymentIncreaseBlocks; // 5040
 
                                                                     // mainnet:
-    if(nHeight > paymentStart)             ret = blockValue * 0.2; // 31995 - 20%
+    if(nHeight > paymentStart)             ret = blockValue * 0.25; // 31995 - 25%
     if(nHeight > paymentStart+ (step* 1)) ret = blockValue * 0.3; // 37035 - 30%
     if(nHeight > paymentStart+ (step* 2)) ret = blockValue * 0.35; // 42075 - 35%
     if(nHeight > paymentStart+ (step* 3)) ret = blockValue * 0.4; // 47115 - 40%
