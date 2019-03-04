@@ -151,7 +151,7 @@ public:
         consensus.powLimit[ALGO_SLOT3] = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // Rainforest
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Kepler: 1 day
         
-        consensus.nPowTargetSpacing = 120; // 120 second block time, Dash: Was 2.5 * 60
+        consensus.nPowTargetSpacing = 120; // 120 second block time, target is set to 120 * NUM_ALGOS, so every algorithm finds a block every 2 mins on avg
         consensus.nPoWAveragingInterval = 10; // 10 block averaging interval
         consensus.nMaxAdjustDown = 4; // 4% adjustment downwards
         consensus.nMaxAdjustUp = 4; // 4% adjustment upwards
@@ -168,10 +168,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000000000000ca00"); // 1 getblockchaininfo: chainwork
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000102d00"); // 1 getblockchaininfo: chainwork
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0xb8ddab2eff17dc3c50d0b8932902ad74d9013b97299134df5aa7e8380b0adf06"); // 1
+        consensus.defaultAssumeValid = uint256S("0x2fc4ae8e56ac19d9dc3f4aba22062d63627b8ea4d918a3d814c763923fa2b836"); // 1
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -263,7 +263,7 @@ public:
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
             (  0, uint256S("0xd3e0a2fffc176160b542a5aab21818c84ed3c30e3cc95d05581c1ebdc8ce74ca"))
-            //(  1, uint256S("0x0a4ef348324487a1ecce20b9d083bc6b1932f05159729a80de41260e9d1e23c6"))
+            (  1, uint256S("0x2fc4ae8e56ac19d9dc3f4aba22062d63627b8ea4d918a3d814c763923fa2b836"))
         };
 
         chainTxData = ChainTxData{
