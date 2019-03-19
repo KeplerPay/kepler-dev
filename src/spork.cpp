@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017 The kepler Core developers
+// Copyright (c) 2014-2017 The dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,7 +26,8 @@ std::map<int, int64_t> mapSporkDefaults = {
     {SPORK_9_SUPERBLOCKS_ENABLED,            4070908800ULL}, // OFF
     {SPORK_10_MASTERNODE_PAY_UPDATED_NODES,  4070908800ULL}, // OFF
     {SPORK_12_RECONSIDER_BLOCKS,             0},             // 0 BLOCKS
-    {SPORK_14_REQUIRE_SENTINEL_FLAG,         4070908800ULL}, // OFF
+    //{SPORK_14_REQUIRE_SENTINEL_FLAG,         4070908800ULL}, // OFF
+    {SPORK_14_REQUIRE_SENTINEL_FLAG,         0}, // ON
 };
 
 void CSporkManager::ProcessSpork(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)

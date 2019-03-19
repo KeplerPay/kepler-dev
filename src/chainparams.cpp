@@ -80,7 +80,7 @@ static CBlock CreateDevNetGenesisBlock(const uint256 &prevBlockHash, const std::
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "26/02/2019 ultima prueba";
+    const char* pszTimestamp = "XX/03/2019 noticia";
     const CScript genesisOutputScript = CScript() << ParseHex("04b8bbf7e36419f96fc99b7d9d04a62e8d9a28f6c8dc548e7b9b84b44c380693b76e730f28d18894bc05a0a72d5bb8e35221dc0d375f8552c9485995f60a94d23a") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -134,7 +134,7 @@ public:
         consensus.nInstantSendKeepLock = 24;
 
         consensus.nBudgetPaymentsStartBlock = 10000000; // actual historical value
-        consensus.nBudgetPaymentsCycleBlocks = 3; // ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
+        consensus.nBudgetPaymentsCycleBlocks = 1000; // ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
         consensus.nBudgetPaymentsWindowBlocks = 100;
         consensus.nSuperblockStartBlock = 10000001; // The block at which 12.1 goes live (end of final 12.0 budget cycle)
         consensus.nSuperblockStartHash = uint256S("00000000000fffffffffffffffffffffffffffffffffffffffffffffffffffff");

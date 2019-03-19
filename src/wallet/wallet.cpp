@@ -2613,6 +2613,7 @@ void CWallet::AvailableCoins(std::vector<COutput>& vCoins, bool fOnlyConfirmed, 
                     found = !CPrivateSend::IsDenominatedAmount(pcoin->tx->vout[i].nValue);
                 } else if(nCoinType == ONLY_1000) { //     ONLY_1000, // find masternode outputs including locked ones (use with caution)
                     found = pcoin->tx->vout[i].nValue == Params().GetConsensus().nMasternodeCost*COIN; //!!!
+                    //LogPrintf("found %d\n", found);
                 } else if(nCoinType == ONLY_PRIVATESEND_COLLATERAL) {
                     found = CPrivateSend::IsCollateralAmount(pcoin->tx->vout[i].nValue);
                 } else {
@@ -2624,11 +2625,15 @@ void CWallet::AvailableCoins(std::vector<COutput>& vCoins, bool fOnlyConfirmed, 
                 if (!(IsSpent(wtxid, i)) && mine != ISMINE_NO &&
                     (!IsLockedCoin((*it).first, i) || nCoinType == ONLY_1000) &&
                     (pcoin->tx->vout[i].nValue > 0 || fIncludeZeroValue) &&
-                    (!coinControl || !coinControl->HasSelected() || coinControl->fAllowOtherInputs || coinControl->IsSelected(COutPoint((*it).first, i))))
+                    (!coinControl || !coinControl->HasSelected() || coinControl->fAllowOtherInputs || coinControl->IsSelected(COutPoint((*it).first, i)))){ 
+                    //LogPrintf("DEBUG: Not-spent %d, mine %d, locked or collateral %d, %d higher than 0, %d coincontrol shit", !(IsSpent(wtxid, i)), mine != ISMINE_NO, (!IsLockedCoin((*it).first, i) || nCoinType == ONLY_1000), (pcoin->tx->vout[i].nValue > 0 || fIncludeZeroValue), (!coinControl || !coinControl->HasSelected() || coinControl->fAllowOtherInputs || coinControl->IsSelected(COutPoint((*it).first, i))));    
+
                         vCoins.push_back(COutput(pcoin, i, nDepth,
                                                  ((mine & ISMINE_SPENDABLE) != ISMINE_NO) ||
                                                   (coinControl && coinControl->fAllowWatchOnly && (mine & ISMINE_WATCH_SOLVABLE) != ISMINE_NO),
                                                  (mine & (ISMINE_SPENDABLE | ISMINE_WATCH_SOLVABLE)) != ISMINE_NO));
+                }   
+
             }
         }
     }
