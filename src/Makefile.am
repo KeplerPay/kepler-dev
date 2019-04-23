@@ -356,8 +356,8 @@ crypto_libkepler_crypto_a_SOURCES += \
   crypto/argon2/encoding.h \
   crypto/argon2/thread.c \
   crypto/argon2/thread.h \
-  crypto/rainforest/rainforest.c \
-  crypto/rainforest/rainforest.h \
+  crypto/rfv2/rfv2_core.c \
+  crypto/rfv2/rfv2.h \
   crypto/neoscrypt/neoscrypt.c \
   crypto/neoscrypt/neoscrypt.h
 
