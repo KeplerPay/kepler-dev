@@ -26,6 +26,10 @@
 #include "crypto/sph_simd.h"
 #include "crypto/sph_echo.h"
 
+extern "C"{
+#include <crypto/rfv2/rfv2.h>
+}	
+
 #include <vector>
 
 typedef uint256 ChainCode;
@@ -311,7 +315,7 @@ public:
 uint64_t SipHashUint256(uint64_t k0, uint64_t k1, const uint256& val);
 uint64_t SipHashUint256Extra(uint64_t k0, uint64_t k1, const uint256& val, uint32_t extra);
 
-/* ----------- Kepler Hash ------------------------------------------------ */
+/* ----------- X11 Hash ------------------------------------------------ */
 template<typename T1>
 inline uint256 HashX11(const T1 pbegin, const T1 pend)
 
@@ -376,6 +380,22 @@ inline uint256 HashX11(const T1 pbegin, const T1 pend)
     sph_echo512_close(&ctx_echo, static_cast<void*>(&hash[10]));
 
     return hash[10].trim256();
+}
+
+/** Rainforest v2 hash wrapper */
+template <typename T>
+inline uint256 RainforestV2(const T* pbegin, const T* pend)
+{
+    static T pblank[1];
+
+    uint256 hash;
+
+    const void* block = pbegin == pend ? pblank : pbegin;
+    size_t      length  = (pend - pbegin) * sizeof(T);
+
+    rfv2_hash(hash.begin(), block, length, NULL, NULL);
+
+    return hash;
 }
 
 #endif // BITCOIN_HASH_H
