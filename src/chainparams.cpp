@@ -168,10 +168,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // The best chain should have at least this much work.
-        //consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000102d00"); // 1 getblockchaininfo: chainwork
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000000000000ca00"); // 1 getblockchaininfo: chainwork
 
         // By default assume that the signatures in ancestors of this block are valid.
-        //consensus.defaultAssumeValid = uint256S("0x2fc4ae8e56ac19d9dc3f4aba22062d63627b8ea4d918a3d814c763923fa2b836"); // 1
+        consensus.defaultAssumeValid = uint256S("0x517e09c5497ebb070740826673225c687ff67d3af2cda86688dcfde64b086e95"); // 1
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.

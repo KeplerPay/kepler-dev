@@ -50,7 +50,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     int64_t nMinActualTimespan;
     int64_t nMaxActualTimespan;
 
-    if (pindexLast->nHeight < 4999){    
+    if (pindexLast->nHeight < 2999){    
         nMinActualTimespan = params.nPoWAveragingTargetTimespan() * (100 - 20) / 100;
         nMaxActualTimespan = params.nPoWAveragingTargetTimespan() * (100 + 20) / 100;
     }else{    
