@@ -341,7 +341,7 @@ crypto_libkepler_crypto_a_SOURCES += \
   crypto/sph_skein.h \
   crypto/sph_types.h
 
-# other POW algos, fix CFLAGS for rainforest
+# other POW algos
 crypto_libkepler_crypto_a_SOURCES += \
   crypto/hashargon2d.h \
   crypto/argon2/argon2.c \

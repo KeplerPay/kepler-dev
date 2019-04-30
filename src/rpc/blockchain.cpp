@@ -1249,7 +1249,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
             "  \"difficulty\": xxxxxx,     (numeric) the current difficulty for active mining algorithm\n"
             "  \"difficulty_neoscrypt\": xxxxxx,   (numeric) the current difficulty for neoscrypt\n"
             "  \"difficulty_argon2d\": xxxxxx, (numeric) the current difficulty for argon2d\n"
-            "  \"difficulty_rainforest\": xxxxxx, (numeric) the current difficulty for rainforest\n"
+            "  \"difficulty_rfv2\": xxxxxx, (numeric) the current difficulty for rainforestV2\n"
             "  \"mediantime\": xxxxxx,     (numeric) median time for the current best block\n"
             "  \"verificationprogress\": xxxx, (numeric) estimate of verification progress [0..1]\n"
             "  \"chainwork\": \"xxxx\"     (string) total amount of work in active chain, in hexadecimal\n"

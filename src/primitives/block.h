@@ -15,7 +15,7 @@
     enum {
         ALGO_SLOT1 = 0,  // NeoScrypt
         ALGO_SLOT2 = 1,  // Argon2d-4096
-        ALGO_SLOT3 = 2,  // Rainforest
+        ALGO_SLOT3 = 2,  // RainforestV2
         NUM_ALGOS
     };
     enum {
