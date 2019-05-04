@@ -37,14 +37,14 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
         if (pindexFirst == NULL){   
             return nProofOfWorkLimit.GetCompact();
-            LogPrintf("GetNextWorkRequired(%d):   pindexFirst null, returning powLimit  %d \n", algo, i);
+            //LogPrintf("GetNextWorkRequired(%d):   pindexFirst null, returning powLimit  %d \n", algo, i);
         }   
     }
 
     //pindexFirst: 10 blocks before pindexPrev, pindexLast: latest block, pindexPrev: latest block for algo
     int64_t nActualTimespan = pindexPrev->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
 
-    LogPrintf("GetNextWorkRequired(%d):   nActualTimespan = %d before bounds   %d   %d\n", algo, nActualTimespan, pindexPrev->GetMedianTimePast(), pindexFirst->GetMedianTimePast());
+    //LogPrintf("GetNextWorkRequired(%d):   nActualTimespan = %d before bounds   %d   %d\n", algo, nActualTimespan, pindexPrev->GetMedianTimePast(), pindexFirst->GetMedianTimePast());
     
     // Initial mining phase, allow up to 20% difficulty change per block
     int64_t nMinActualTimespan;
@@ -63,7 +63,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     if (nActualTimespan > nMaxActualTimespan)
         nActualTimespan = nMaxActualTimespan;
 
-    LogPrintf("GetNextWorkRequired(%d):   nActualTimespan = %d after bounds   %d   %d\n", algo, nActualTimespan, nMinActualTimespan, nMaxActualTimespan);
+    //LogPrintf("GetNextWorkRequired(%d):   nActualTimespan = %d after bounds   %d   %d\n", algo, nActualTimespan, nMinActualTimespan, nMaxActualTimespan);
 
     arith_uint256 bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
@@ -75,10 +75,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     if(bnNew > nProofOfWorkLimit)
         bnNew = nProofOfWorkLimit;
 
-    LogPrintf("GetNextWorkRequired(Algo=%d) RETARGET\n", algo);
-    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", params.nPoWAveragingTargetTimespan(), nActualTimespan);
-    LogPrintf("Before: %08x  %s\n", pindexPrev->nBits, bnOld.ToString());
-    LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.ToString());
+    //LogPrintf("GetNextWorkRequired(Algo=%d) RETARGET\n", algo);
+    //LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", params.nPoWAveragingTargetTimespan(), nActualTimespan);
+    //LogPrintf("Before: %08x  %s\n", pindexPrev->nBits, bnOld.ToString());
+    //LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.ToString());
 
     return bnNew.GetCompact();
 }

@@ -236,7 +236,7 @@ public:
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,45);
         // Kepler script addresses start with '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,20);
-        // Kepler private keys start with 'L' or 'M'
+        // Kepler private keys start with '8' // ??
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,49);
         // Kepler BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();

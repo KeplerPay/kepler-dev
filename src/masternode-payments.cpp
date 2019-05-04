@@ -143,7 +143,7 @@ bool IsBlockPayeeValid(const CTransaction& txNew, int nBlockHeight, CAmount bloc
     // we are still using budgets, but we have no data about them anymore,
     // we can only check masternode payments
 
-    const Consensus::Params& consensusParams = Params().GetConsensus();
+    /*const Consensus::Params& consensusParams = Params().GetConsensus();
 
     if(nBlockHeight < consensusParams.nSuperblockStartBlock) {
         // NOTE: old budget system is disabled since 12.1 and we should never enter this branch
@@ -151,7 +151,7 @@ bool IsBlockPayeeValid(const CTransaction& txNew, int nBlockHeight, CAmount bloc
         // have tons of confirmations and can be safely accepted without payee verification
         LogPrint("gobject", "IsBlockPayeeValid -- WARNING: Client synced but old budget system is disabled, accepting any payee\n");
         return true;
-    }
+    }*/
 
     // superblocks started
     // SEE IF THIS IS A VALID SUPERBLOCK
