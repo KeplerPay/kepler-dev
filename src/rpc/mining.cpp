@@ -566,10 +566,11 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
         if (IsInitialBlockDownload())
             throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Kepler Core is downloading blocks...");
     }
-
+    const Consensus::Params& consensusParams = Params().GetConsensus();
     // when enforcement is on we need information about a masternode payee or otherwise our block is going to be orphaned by the network
     CScript payee;
     if (sporkManager.IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT)
+        && (chainActive.Height() + 1) >= consensusParams.nMasternodePaymentsStartBlock)
         && !masternodeSync.IsWinnersListSynced()
         && !mnpayments.GetBlockPayee(chainActive.Height() + 1, payee))
             throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Kepler Core is downloading masternode winners...");
