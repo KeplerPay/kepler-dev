@@ -133,3 +133,8 @@ make
 # CLion
 .idea
 cmake-build-debug
+
+#VSCode
+ipch/
+*.aps
+*.ncb
