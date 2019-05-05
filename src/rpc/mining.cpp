@@ -570,7 +570,7 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
     // when enforcement is on we need information about a masternode payee or otherwise our block is going to be orphaned by the network
     CScript payee;
     if (sporkManager.IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT)
-        && (chainActive.Height() + 1) >= consensusParams.nMasternodePaymentsStartBlock)
+        && (chainActive.Height() + 1) >= consensusParams.nMasternodePaymentsStartBlock
         && !masternodeSync.IsWinnersListSynced()
         && !mnpayments.GetBlockPayee(chainActive.Height() + 1, payee))
             throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Kepler Core is downloading masternode winners...");
@@ -654,7 +654,6 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
         pindexPrev = pindexPrevNew;
     }
     CBlock* pblock = &pblocktemplate->block; // pointer for convenience
-    const Consensus::Params& consensusParams = Params().GetConsensus();
 
     // Update nTime
     UpdateTime(pblock, consensusParams, pindexPrev);
