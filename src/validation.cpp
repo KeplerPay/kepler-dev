@@ -1332,14 +1332,14 @@ CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
 {
     CAmount ret = 0; // start at 0
 
-    int paymentStart = Params().GetConsensus().nMasternodePaymentsStartBlock; // 31995
+    int paymentStart = Params().GetConsensus().nMasternodePaymentsStartBlock; // 21900
     int step = Params().GetConsensus().nMNPaymentIncreaseBlocks; // 5040
 
                                                                     // mainnet:
-    if(nHeight >= paymentStart)             ret = blockValue * 0.25; // 31995 - 25%
-    if(nHeight > paymentStart+ (step* 1)) ret = blockValue * 0.3; // 37035 - 30%
-    if(nHeight > paymentStart+ (step* 2)) ret = blockValue * 0.35; // 42075 - 35%
-    if(nHeight > paymentStart+ (step* 3)) ret = blockValue * 0.4; // 47115 - 40%
+    if(nHeight >= paymentStart)             ret = blockValue * 0.25; // 21900 - 25%
+    if(nHeight > paymentStart+ (step* 1)) ret = blockValue * 0.3; // 26940 - 30%
+    if(nHeight > paymentStart+ (step* 2)) ret = blockValue * 0.35; // 31980 - 35%
+    if(nHeight > paymentStart+ (step* 3)) ret = blockValue * 0.4; // 37020 - 40%
 
     return ret;
 }

@@ -80,7 +80,7 @@ static CBlock CreateDevNetGenesisBlock(const uint256 &prevBlockHash, const std::
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "22/04/2019 prueba rfv2";
+    const char* pszTimestamp = "XX/05/2019 NOTICIA";
     const CScript genesisOutputScript = CScript() << ParseHex("04b8bbf7e36419f96fc99b7d9d04a62e8d9a28f6c8dc548e7b9b84b44c380693b76e730f28d18894bc05a0a72d5bb8e35221dc0d375f8552c9485995f60a94d23a") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -126,7 +126,7 @@ public:
     CMainParams() {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 1051200; // Note: Number of blocks per calendar year is 262800 :: 525600 mins por año
-        consensus.nMasternodePaymentsStartBlock = 31995; // 1 month and 2 weeks after genesis
+        consensus.nMasternodePaymentsStartBlock = 21900; // 1 month after genesis
         consensus.nMNPaymentIncreaseBlocks = 5040; // steps in GetMasternodePayment, increase every week. 1 week = 10080 mins
         consensus.nMasternodeCost = 10000;
 
@@ -168,10 +168,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000000000000ca00"); // 1 getblockchaininfo: chainwork
+        consensus.nMinimumChainWork = uint256S("0x"); // 1 getblockchaininfo: chainwork
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x517e09c5497ebb070740826673225c687ff67d3af2cda86688dcfde64b086e95"); // 1
+        consensus.defaultAssumeValid = uint256S("0x"); // 1
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -225,12 +225,12 @@ public:
 
 
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x39b4e86b511344fabd0c1666d1976d4bc938fd08a36c7de47e3f897981a97d16"));
-        assert(genesis.hashMerkleRoot == uint256S("0x39bb0e46780b4afd46c0a9661318ce6575eeee04abc332eac39f563a55fedeb4"));
+        assert(consensus.hashGenesisBlock == uint256S("0x"));
+        assert(genesis.hashMerkleRoot == uint256S("0x"));
 
 
         vSeeds.push_back(CDNSSeedData("kepler.cash", "seed1.kepler.cash"));
-        //vSeeds.push_back(CDNSSeedData("kepler.cash", "seed2.kepler.cash"));
+        vSeeds.push_back(CDNSSeedData("kepler.cash", "seed2.kepler.cash"));
 
         // Kepler addresses start with 'K'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,45);
@@ -262,12 +262,12 @@ public:
 
         checkpointData = (CCheckpointData) {
             //boost::assign::map_list_of
-            //(  0, uint256S("0xd3e0a2fffc176160b542a5aab21818c84ed3c30e3cc95d05581c1ebdc8ce74ca"))
-            //(  1, uint256S("0x2fc4ae8e56ac19d9dc3f4aba22062d63627b8ea4d918a3d814c763923fa2b836"))
+            //(  1, uint256S("0x"))
+            //(  1000, uint256S("0x2fc4ae8e56ac19d9dc3f4aba22062d63627b8ea4d918a3d814c763923fa2b836"))
         };
 
         chainTxData = ChainTxData{
-            1555986291, // * UNIX timestamp of last known number of transactions
+            0, // * UNIX timestamp of last known number of transactions
             0,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.1         // * estimated number of transactions per second after that timestamp
