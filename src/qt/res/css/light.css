@@ -84,7 +84,7 @@ background-color:transparent;
 }
 
 .QValidatedLineEdit, .QLineEdit { /* Text Entry Fields */
-border: 1px solid #82C3E6;
+border: 1px solid #8465d3;
 font-size:11px;
 min-height:25px;
 outline:0;
@@ -281,7 +281,7 @@ background-color:transparent;
 
 QHeaderView::section { /* Table Header Sections */
 qproperty-alignment:center;
-background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.25, stop: 0 #1070B0, stop: 1 #8465d3);
+background-color:#8465d3;
 color:#fff;
 min-height:25px;
 font-weight:bold;
