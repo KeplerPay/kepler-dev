@@ -126,7 +126,7 @@ public:
     CMainParams() {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 1051200; // Note: Number of blocks per calendar year is 262800 :: 525600 mins por año
-        consensus.nMasternodePaymentsStartBlock = 21900; // 1 month after genesis
+        consensus.nMasternodePaymentsStartBlock = 22000; // 1 month and 100 blocks after genesis
         consensus.nMNPaymentIncreaseBlocks = 5040; // steps in GetMasternodePayment, increase every week. 1 week = 10080 mins
         consensus.nMasternodeCost = 10000;
 
@@ -137,7 +137,7 @@ public:
         consensus.nBudgetPaymentsCycleBlocks = 1000; // ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
         consensus.nBudgetPaymentsWindowBlocks = 100;
         consensus.nSuperblockStartBlock = 10000001; // The block at which 12.1 goes live (end of final 12.0 budget cycle)
-        consensus.nSuperblockStartHash = uint256S("00000000000fffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.nSuperblockStartHash = uint256S("00000ff0000fffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nSuperblockCycle = 10; // ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
         
         consensus.nGovernanceMinQuorum = 10;
