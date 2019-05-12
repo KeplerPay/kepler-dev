@@ -168,10 +168,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000102d00"); // 1 getblockchaininfo: chainwork
+        consensus.nMinimumChainWork = uint256S("0x"); // 1 getblockchaininfo: chainwork
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0xf943524344fbd3cdfe985bad14e52bfad65b7a602c2975e00f9d78ce9007a3a4"); // 1
+        consensus.defaultAssumeValid = uint256S("0x"); // 1
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -187,7 +187,7 @@ public:
         nPruneAfterHeight = 100000;
 
         // timestamp, nNonce, nBits, nVersion, genesisReward 
-        genesis = CreateGenesisBlock(1557604390, 37098907, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1555986291, 36257733, 0x1e0ffff0, 1, 50 * COIN);
         if(false)
         {
             printf("Searching for mainnet genesis block...\n");
@@ -225,8 +225,8 @@ public:
 
 
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0xcda734986bf019f2ffdc784a1cb1cba171bac308c4306e36a9d1ebcf0ff5e97e"));
-        assert(genesis.hashMerkleRoot == uint256S("0xb12d180972699070d6b043024f034254051ea8dec67278c63f491a3a53b3eb71"));
+        assert(consensus.hashGenesisBlock == uint256S("0x"));
+        assert(genesis.hashMerkleRoot == uint256S("0x"));
 
 
         vSeeds.push_back(CDNSSeedData("kepler.cash", "seed1.kepler.cash"));
@@ -261,13 +261,13 @@ public:
         strSporkAddress = "KKuLrH5JHbt42YqXwUsnRwzX7mBwV7AXWV";
 
         checkpointData = (CCheckpointData) {
-            boost::assign::map_list_of
-            (  1, uint256S("0xf943524344fbd3cdfe985bad14e52bfad65b7a602c2975e00f9d78ce9007a3a4"))
+            //boost::assign::map_list_of
+            //(  1, uint256S("0x"))
             //(  1000, uint256S("0x2fc4ae8e56ac19d9dc3f4aba22062d63627b8ea4d918a3d814c763923fa2b836"))
         };
 
         chainTxData = ChainTxData{
-            1557604390, // * UNIX timestamp of last known number of transactions
+            0, // * UNIX timestamp of last known number of transactions
             0,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.1         // * estimated number of transactions per second after that timestamp
